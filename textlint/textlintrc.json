@@ -1,0 +1,13 @@
+{
+    "plugins": {
+        "@textlint/text": {
+            "extensions": [".org"]
+        }
+    },
+    "rules": {
+        "write-good": {
+            "passive": true,
+            "thereIs": true
+        }
+    }
+}
