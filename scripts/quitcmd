@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cmds="\
+ logout\tkill -TERM $(pgrep -u $USER "\bdwm$")
+ reboot\tsudo -A reboot
+ shutdown\tsudo -A shutdown -h now"
+
+choice="$(echo "$cmds" | cut -f 1 | dmenu -p "You wish to:")" || exit 1
+
+`echo "$cmds" | grep "^$choice" | cut -f2-`

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Let us first choose an editor
+eds="\
+emacs\temacsclient -c -a emacs
+nvim\tst nvim"
+
+choice="$(echo "$eds" | cut -f 1 | dmenu -p "Choose editor:")" || exit 1
+
+DMEDITOR=$(echo "$eds" | grep "^$choice" | cut -f2-)
+
+# And let us then choose a config file to edit
+cmds="\
+zshrc\t$DMEDITOR $HOME/dotfiles/zsh/.zshrc
+doom config\t$DMEDITOR $HOME/dotfiles/doom/config.el
+doom packages\t$DMEDITOR $HOME/dotfiles/doom/packages.el
+doom init\t$DMEDITOR $HOME/dotfiles/doom/init.el
+nvim\t$DMEDITOR $HOME/dotfiles/nvim/init.vim
+dwm\t$DMEDITOR $HOME/git_packages/suckless/dwm/config.h
+st\t$DMEDITOR $HOME/git_packages/suckless/st/config.h
+dmenu\t$DMEDITOR $HOME/git_packages/suckless/dmenu/config.h
+slstatusbar\t$DMEDITOR $HOME/git_packages/suckless/dmenu/config.h
+picom\t$DMEDITOR $HOME/dotfiles/picom/picom.conf
+newsboat config\t$DMEDITOR $HOME/dotfiles/newsboat/config
+newsboat urls\t$DMEDITOR $HOME/dotfiles/newsboat/urls"
+
+choice="$(echo "$cmds" | cut -f 1 | dmenu -l 20 -p "Edit config of:")" || exit 1
+
+`echo "$cmds" | grep "^$choice" | cut -f2-`

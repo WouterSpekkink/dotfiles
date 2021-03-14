@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# The below prevents xscreensaver from starting when zoom, teams or skype are running
+# Apparently, teams and skype are using some kind of chromium wrapper, so I am exploting that.
+
+# The script checks every 9 minutes whether audio is being streamed from these apps to pulse-audio
+# If yes, then it sends the xscreensaver-command -deactivate command, which resets xscreensaver's timer
+
+checkAudio()
+{
+	if (pacmd list-sink-inputs | grep -i "application.name = \"zoom.*\"" ||
+	  	pacmd list-sink-inputs | grep -i "application.name = \"chromium.*\"" ||
+		pacmd list-sink-inputs | grep -i "application.name = \"firefox.*\"" &&
+	  	pacmd list-sink-inputs | grep -i "state: RUNNING" ||
+	  	pacmd list-sink-inputs | grep -i "application.name = \"webkitwebprocess.*\"" &&
+	  	pacmd list-sink-inputs | grep -i "state: RUNNING" ||
+	  	pacmd list-sink-inputs | grep -i "application.name = \"qutebrowser.*\"" &&
+	  	pacmd list-sink-inputs | grep -i "state: RUNNING" ||
+	  	pacmd list-sink-inputs | grep -i "application.name = \"skype.*\"" &&
+	  	pacmd list-sink-inputs | grep -i "state: RUNNING" )
+	then
+  		xscreensaver-command -deactivate
+	fi
+}
+
+while true 
+do
+	checkAudio
+	sleep 9m
+done
+exit 0

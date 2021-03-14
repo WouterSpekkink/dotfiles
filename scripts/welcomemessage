@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+# Welcome message
+ORANGE="\e[33m"
+BLUE="\e[94m"
+STOP="\e[0m"
+NOW=$(date +"%s")
+if (( ${NOW} >= $(date --date="Today 0:00" +"%s") )) && (( ${NOW} < $(date --date="Today 12:00" +"%s") ))
+then
+printf "${ORANGE}"
+printf "===================================================================\n"
+printf "${BLUE}"
+figlet Good Morning\!
+printf "${ORANGE}"
+printf "===================================================================\n"
+elif (( ${NOW} >= $(date --date="Today 12:00" +"%s") )) && (( ${NOW} < $(date --date="Today 18:00" +"%s") ))
+then
+printf "${ORANGE}"
+printf "==============================================================================\n"
+printf "${BLUE}"
+figlet Good Afternoon\!
+printf "${ORANGE}"
+printf "==============================================================================\n"
+elif (( ${NOW} >= $(date --date="Today 18:00" +"%s") )) && (( ${NOW} < $(date --date="Today 0:00 + 1days" +"%s") ))
+then
+printf "${ORANGE}"
+printf "=================================================================\n"
+printf "${BLUE}"
+figlet Good Evening\!
+printf "${ORANGE}"
+printf "=================================================================\n"
+fi
+printf "${STOP}"

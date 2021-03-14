@@ -17,4 +17,15 @@ init: ## deploy dotfiles
 	$(LN) $(PWD)/starship/starship.toml $(HOME)/.config/starship.toml
 	$(LN) $(PWD)/textlint/textlintrc.json $(HOME)/.config/textlint/textlintrc.json
 	$(LN) $(PWD)/exchange2org/exchange2orgconfig.py $(HOME)/.config/exchange2org/exchange2orgconfig.py
+	$(LN) $(PWD)/newsboat/config $(HOME)/.config/newsboat/config
+	$(LN) $(PWD)/newsboat/urls $(HOME)/.config/newsboat/urls
 	$(SLN) $(PWD)/profile/profile /etc/profile
+
+execs: 
+	$(LN) $(PWD)/scripts/gemtoot $(HOME)/.local/bin/gemtoot
+	$(LN) $(PWD)/scripts/dmenuconfig $(HOME)/.local/bin/dmenuconfig
+	$(LN) $(PWD)/scripts/checkaudio $(HOME)/.local/bin/checkaudio
+	$(LN) $(PWD)/scripts/dmenupass $(HOME)/.local/bin/dmenupass
+	$(LN) $(PWD)/scripts/welcomemessage $(HOME)/.local/bin/welcomemessage
+	$(LN) $(PWD)/scripts/quitcmd $(HOME)/.local/bin/quitcmd
+	$(LN) $(PWD)/scripts/remaps $(HOME)/.local/bin/remaps
