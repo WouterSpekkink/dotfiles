@@ -9,6 +9,11 @@ SLN = sudo ln -vsf
 LNDIR = ln -vs
 PKGINSTALL = sudo pacman --noconfirm -S
 
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+	| sort \
+	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
 init: ## deploy dotfiles
 	$(LN) $(PWD)/zsh/.zshrc $(HOME)/.config/zsh/.zshrc
 	$(LN) $(PWD)/doom/init.el $(HOME)/.config/doom/init.el
