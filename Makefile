@@ -1,4 +1,6 @@
 # Automatic configuration setup
+# Inspired by Gavin Freeborn's example:
+# https://www.youtube.com/watch?v=aP8eggU2CaU
 
 BASE = $(PWD)
 MKDIR = mkdir -p
@@ -29,3 +31,8 @@ execs:
 	$(LN) $(PWD)/scripts/welcomemessage $(HOME)/.local/bin/welcomemessage
 	$(LN) $(PWD)/scripts/quitcmd $(HOME)/.local/bin/quitcmd
 	$(LN) $(PWD)/scripts/remaps $(HOME)/.local/bin/remaps
+
+backup: ## Backup arch linux packages
+	$(MKDIR) $(PWD)/archlinux
+	pacman -Qnq > $(PWD)/archlinux/pacmanlist
+	pacman -Qqem > $(PWD)/archlinux/aurlist
