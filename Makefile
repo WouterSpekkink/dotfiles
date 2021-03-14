@@ -32,6 +32,13 @@ execs:
 	$(LN) $(PWD)/scripts/quitcmd $(HOME)/.local/bin/quitcmd
 	$(LN) $(PWD)/scripts/remaps $(HOME)/.local/bin/remaps
 
+install: ## Install arch linux packages
+	$(PKGINSTALL) --needed - < $(PWD)/archlinux/pacmanlist
+	sudo pkgfile --update
+
+aur: ## Install arch linux AUR packages using yay
+	yay -S --needed - < $(PWD)/archlinux/aurlist
+
 backup: ## Backup arch linux packages
 	$(MKDIR) $(PWD)/archlinux
 	pacman -Qnq > $(PWD)/archlinux/pacmanlist
