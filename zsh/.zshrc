@@ -90,7 +90,11 @@ alias doomupgrade="$HOME/.config/emacs/bin/doom upgrade"
 alias doomdoctor="$HOME/.config/emacs/bin/doom doctor"
 alias doompurge="$HOME/.config/emacs/bin/doom purge"
 alias doomclean="$HOME/.config/emacs/bin/doom clean"
-alias importcal="python $HOME/exchange2org/__init__.py --calendar ~/org/outlook.org --startday 6 --endday 90"
+alias importcal="python $HOME/Tools/exchange2org/__init__.py --calendar ~/org/outlook.org --startday 6 --endday 90"
+alias netbeans="netbeans --userdir ${XDG_CONFIG_HOME}/netbeans"
+alias qualcoder="python3 $HOME/Tools/QualCoder/qualcoder/qualcoder.py"
+alias exult="exult -c $HOME/.local/share/exult/exult.cfg"
+alias gephi="$HOME/Tools/gephi-0.9.2/bin/gephi"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'

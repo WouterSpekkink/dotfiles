@@ -92,8 +92,8 @@
 (after! helm
   (use-package! helm-bibtex
     :custom
-    (bibtex-completion-bibliography '("~/Zotero/bibtex/library.bib"))
-    (reftex-default-bibliography '("~/Zotero/bibtex/library.bib"))
+    (bibtex-completion-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
+    (reftex-default-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
     (bibtex-completion-pdf-field "file")
     :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
   (map! :leader
@@ -111,8 +111,8 @@
   (setq org-default-notes-file "~/org/refile.org")
   (setq org-agenda-files (quote("~/org/"
                                 "~/org/synced/"
-                                "~/org-roam/"
-                                "~/org-roam/daily/"
+                                "~/org/org-roam/"
+                                "~/org/org-roam/daily/"
                                 "~/Documents/EUR/Writing/Q-SoPrA/")))
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-ellipsis " ▼ ")
@@ -152,7 +152,7 @@
   ;; org refile related stuff
   (setq org-refle-targets (quote ((nil :maxlevel . 9)
                                   (org-agenda-files :maxlevel . 9)
-                                  ("~/org-roam/" :maxlevel . 9))))
+                                  ("~/org/org-roam/" :maxlevel . 9))))
 
   (setq org-refile-use-outline-path t)
 
@@ -168,7 +168,7 @@
   ;; Set up org-ref stuff
   (use-package! org-ref
     :custom
-    (org-ref-default-bibliography "/home/wouter/Zotero/bibtex/library.bib")
+    (org-ref-default-bibliography "/home/wouter/Tools/Zotero/bibtex/library.bib")
     (org-ref-default-citation-link "citep"))
 
   (defun my/org-ref-open-pdf-at-point ()
@@ -194,7 +194,7 @@
   (setq org-latex-to-mathml-convert-command
       "java -jar %j -unicode -force -df %o %I"
       org-latex-to-mathml-jar-file
-      "/home/wouter/math2web/mathtoweb.jar")
+      "/home/wouter/Tools/math2web/mathtoweb.jar")
 
   (add-to-list 'org-latex-classes
                '("apa6"
@@ -213,7 +213,7 @@
   ;; org-noter stuff
   (after! org-noter
     (setq
-          org-noter-notes-search-path '("~/org-roam/")
+          org-noter-notes-search-path '("~/org/org-roam/")
           org-noter-hide-other nil
           org-noter-separate-notes-from-heading t
           org-noter-always-create-frame nil)
@@ -246,7 +246,7 @@
 
 ;; org-roam related things
 (after! org-roam
-  (setq org-roam-directory "~/org-roam")
+  (setq org-roam-directory "~/org/org-roam")
 
   (add-hook 'after-init-hook 'org-roam-mode)
 
@@ -322,7 +322,7 @@
 ;; For deft
 (after! deft
   (setq deft-extensions '("org"))
-  (setq deft-directory "~/org-roam/")
+  (setq deft-directory "~/org/org-roam/")
   (setq deft-recursive t))
 
 ;; For textklintrc

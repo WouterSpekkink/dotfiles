@@ -16,10 +16,11 @@ doom config\t$DMEDITOR $HOME/dotfiles/doom/config.el
 doom packages\t$DMEDITOR $HOME/dotfiles/doom/packages.el
 doom init\t$DMEDITOR $HOME/dotfiles/doom/init.el
 nvim\t$DMEDITOR $HOME/dotfiles/nvim/init.vim
-dwm\t$DMEDITOR $HOME/git_packages/suckless/dwm/config.h
-st\t$DMEDITOR $HOME/git_packages/suckless/st/config.h
-dmenu\t$DMEDITOR $HOME/git_packages/suckless/dmenu/config.h
-slstatusbar\t$DMEDITOR $HOME/git_packages/suckless/dmenu/config.h
+dwm\t$DMEDITOR $HOME/Git/suckless/dwm/config.h
+dwm autostart\t$DMEDITOR $HOME/.local/share/dwm/autostart.sh
+st\t$DMEDITOR $HOME/Git/suckless/st/config.h
+dmenu\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
+slstatusbar\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
 picom\t$DMEDITOR $HOME/dotfiles/picom/picom.conf
 newsboat config\t$DMEDITOR $HOME/dotfiles/newsboat/config
 newsboat urls\t$DMEDITOR $HOME/dotfiles/newsboat/urls"
