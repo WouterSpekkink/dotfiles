@@ -3,7 +3,7 @@
 # If the argument to gemtoo is empty, just exit
 [ -z "$1" ] && exit
 # Otherwise insert the argument (a string), along with a date header, at the 9th line.
-sed -i "9i## $(date +'%a %d %b, %H:%M')\n$1\n" ~/gemini/writings/micro.gmi &&
+sed -i "9i## $(date +'%a %d %b, %H:%M')\n$1\n" ~/Sites/gemini/writings/micro.gmi &&
 # And then exit
-rsync -aP ~/gemini/writings/micro.gmi gemini:~/gemini/writings/micro.gmi
+rsync -aP ~/Sites/gemini/writings/micro.gmi gemini:~/gemini/writings/micro.gmi
 
