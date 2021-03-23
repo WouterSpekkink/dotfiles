@@ -12,12 +12,14 @@ DMEDITOR=$(echo "$eds" | grep "^$choice" | cut -f2-)
 # And let us then choose a config file to edit
 cmds="\
 zshrc\t$DMEDITOR $HOME/dotfiles/zsh/.zshrc
+profile\t$DMEDITOR $HOME/dotfiles/profile/profile
 doom config\t$DMEDITOR $HOME/dotfiles/doom/config.el
 doom packages\t$DMEDITOR $HOME/dotfiles/doom/packages.el
 doom init\t$DMEDITOR $HOME/dotfiles/doom/init.el
 nvim\t$DMEDITOR $HOME/dotfiles/nvim/init.vim
 dwm\t$DMEDITOR $HOME/Git/suckless/dwm/config.h
 dwm autostart\t$DMEDITOR $HOME/.local/share/dwm/autostart.sh
+dwm blocks\t$DMEDITOR $HOME/Git/suckless/dwmblocks/blocks.h
 st\t$DMEDITOR $HOME/Git/suckless/st/config.h
 dmenu\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
 slstatusbar\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h

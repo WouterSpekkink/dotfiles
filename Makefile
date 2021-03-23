@@ -36,6 +36,10 @@ execs:
 	$(LN) $(PWD)/scripts/welcomemessage $(HOME)/.local/bin/welcomemessage
 	$(LN) $(PWD)/scripts/quitcmd $(HOME)/.local/bin/quitcmd
 	$(LN) $(PWD)/scripts/remaps $(HOME)/.local/bin/remaps
+	$(LN) $(PWD)/scripts/sb-clock $(HOME)/.local/bin/sb-clock
+	$(LN) $(PWD)/scripts/sb-battery $(HOME)/.local/bin/sb-battery
+	$(LN) $(PWD)/scripts/sb-cpu $(HOME)/.local/bin/sb-cpu
+	$(LN) $(PWD)/scripts/sb-memory $(HOME)/.local/bin/sb-memory
 
 install: ## Install arch linux packages
 	$(PKGINSTALL) --needed - < $(PWD)/archlinux/pacmanlist
