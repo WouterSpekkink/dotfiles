@@ -1,7 +1,9 @@
 #!/bin/sh
 
-# Prints all batteries, their percentage remaining and an emoji corresponding
-# to charge status (🔌 for plugged up, 🔋 for discharging on battery, etc.).
+case $BLOCK_BUTTON in
+	4) brightnessctl set +10% ;;
+	5) brightnessctl set 10%- ;;
+esac
 
 # Loop through all attached batteries and format the info
 for battery in /sys/class/power_supply/BAT?*; do

@@ -40,6 +40,8 @@ execs:
 	$(LN) $(PWD)/scripts/sb-battery $(HOME)/.local/bin/sb-battery
 	$(LN) $(PWD)/scripts/sb-cpu $(HOME)/.local/bin/sb-cpu
 	$(LN) $(PWD)/scripts/sb-memory $(HOME)/.local/bin/sb-memory
+	$(LN) $(PWD)/scripts/sb-volume $(HOME)/.local/bin/sb-volume
+	$(LN) $(PWD)/scripts/sb-internet $(HOME)/.local/bin/sb-internet
 
 install: ## Install arch linux packages
 	$(PKGINSTALL) --needed - < $(PWD)/archlinux/pacmanlist
