@@ -11,6 +11,11 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # Proper colors
 export TERM="xterm-256color"
 
+# Set history file
+SAVEHIST=100000000
+HISTFILE="$XDG_CACHE_HOME/zsh/zhistory"
+setopt share_history
+
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
