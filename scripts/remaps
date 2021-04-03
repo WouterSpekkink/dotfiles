@@ -8,8 +8,4 @@ xset r rate 300 50
 setxkbmap -option caps:super -variant altgr-intl
 # But when it is pressed only once, treat it as escape
 killall xcape 2>/dev/null ; xcape -e 'Super_L=Escape'
-# Set keypad behaviour to mac default
-setxkbmap -option numpad:mac
-# And set numpad to something useful, such as insert
-xmodmap -e "keysym 0xff7f = Insert"
 

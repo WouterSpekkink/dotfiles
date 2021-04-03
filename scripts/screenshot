@@ -2,7 +2,7 @@
 
 # First ask the user for a filename:
 
-filename="$(dmenu -f -p "Set screeshot filename:" <&-)"
+filename="$(dmenu -f -p "Set screenshot filename:" <&-)"
 
 sleep 0.5  
 import $filename
