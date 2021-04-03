@@ -121,33 +121,52 @@
 
   ;; org keyword related stuff
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))
+        (quote ((sequence
+                 "TODO(t)"
+                 "PROJ(p)"
+                 "LOOP(r)"
+                 "STRT(s)"
+                 "IDEA(i)"
+                 "NEXT(n)"
+                 "|"
+                 "DONE(d)")
+                (sequence
+                 "WAIT(w@/!)"
+                 "HOLD(h@/!)"
+                 "|"
+                 "KILL(k@/!)")
+                (sequence
+                 "[ ](T)"
+                 "[-](S)"
+                 "[?](W)"
+                 "|"
+                 "[X](D)"
+                 ))))
 
   (setq org-todo-keyword-faces
        (quote (
-               ("TODO" warning bold)
-               ("NEXT" font-lock-constant-face bold)
-               ("DONE" success bold)
-               ("WAITING" font-lock-doc-face bold)
-               ("HOLD" font-lock-keyword-face bold)
-               ("CANCELLED" success bold))))
+               ("NEXT" +-lock-constant-face bold))))
 
   (setq org-todo-state-tags-triggers
-        (quote (("CANCELLED" ("CANCELLED" . t))
-                ("WAITING" ("WAITING" . t))
-                ("HOLD" ("WAITING") ("HOLD" . t))
-                (done ("WAITING") ("HOLD"))
-                ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-                ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-                ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+        (quote (("KILL" ("KILL" . t))
+                ("WAIT" ("WAIT" . t))
+                ("HOLD" ("WAIT") ("HOLD" . t))
+                (done ("WAIT") ("HOLD"))
+                ("TODO" ("WAIT") ("KILL") ("HOLD"))
+                ("NEXT" ("WAIT") ("KILL") ("HOLD"))
+                ("DONE" ("WAIT") ("KILL") ("HOLD")))))
 
   ;; org capture related stuff
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "~/org/refile.org")
+        (quote (("r" "respond" entry (file+headline "~/org/refile.org" "Emails")
+                 "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
+                ("p" "project" entry (file+headline "~/org/refile.org" "Projects")
+                 "* PROJ %?\n%U\n%a\n")
+                ("t" "todo" entry (file+headline "~/org/refile.org" "Tasks")
                  "* TODO %?\nSCHEDULED: %t\n%U\n%a\n")
-                ("r" "respond" entry (file "~/org/refile.org")
-                 "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n"))))
+                ("i" "idea" entry (file+headline "~/org/refile.org" "Ideas")
+                 "* IDEA %?\n%U\n%a\n")
+                )))
 
   ;; org refile related stuff
   (setq org-refle-targets (quote ((nil :maxlevel . 9)
