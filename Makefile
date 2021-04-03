@@ -43,6 +43,7 @@ execs:
 	$(LN) $(PWD)/scripts/sb-volume $(HOME)/.local/bin/sb-volume
 	$(LN) $(PWD)/scripts/sb-internet $(HOME)/.local/bin/sb-internet
 	$(LN) $(PWD)/scripts/org-capture $(HOME)/.local/bin/org-capture
+	$(LN) $(PWD)/scripts/screenshot $(HOME)/.local/bin/screenshot
 
 install: ## Install arch linux packages
 	$(PKGINSTALL) --needed - < $(PWD)/archlinux/pacmanlist
