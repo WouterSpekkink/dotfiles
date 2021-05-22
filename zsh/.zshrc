@@ -74,6 +74,7 @@ alias gephi="$HOME/Tools/gephi-0.9.2/bin/gephi"
 alias dwarf="$HOME/Games/df_linux/df"
 alias ls="ls --color"
 alias spss="$HOME/Tools/IBM/SPSS/Statistics/27/bin/spssclient & disown"
+alias vnc="$HOME/Tools/VNC/VNC-Viewer-6.20.529-Linux-x64 & disown"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'
