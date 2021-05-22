@@ -59,3 +59,5 @@
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 (unpin! org-roam company-org-roam)
+(package! acme-mode
+  :recipe (:host github :repo "theyamo/acme-mode.el"))
