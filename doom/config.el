@@ -224,6 +224,36 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+  (add-to-list 'org-latex-classes
+               '("report"
+                 "\\documentclass{report}"
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
+  (add-to-list 'org-latex-classes
+               '("koma-article"
+                 "\\documentclass{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("memoir"
+                 "\\documentclass{memoir}"
+                 ("\\book{%s}" . "\\book*{%s}")
+                 ("\\part{%s}" . "\\part*{%s}")
+                 ("\\chapter{%s} .\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
+
   (defun org-export-latex-no-toc (depth)
     (when depth
       (format "%% Org-mode is exporting headings to %s levels.\n"
@@ -232,10 +262,10 @@
   ;; org-noter stuff
   (after! org-noter
     (setq
-          org-noter-notes-search-path '("~/org/org-roam/")
-          org-noter-hide-other nil
-          org-noter-separate-notes-from-heading t
-          org-noter-always-create-frame nil)
+     org-noter-notes-search-path '("~/org/org-roam/")
+     org-noter-hide-other nil
+     org-noter-separate-notes-from-heading t
+     org-noter-always-create-frame nil)
     (map!
      :map org-noter-doc-mode-map
      :leader
@@ -252,8 +282,8 @@
      :desc "Kill session"
      "m q" #'org-noter-kill-session
      )
+    )
   )
- )
 
 ;; This is to use pdf-tools instead of doc-viewer
 (use-package! pdf-tools
@@ -289,27 +319,27 @@
   ;; For org-roam server
   (require 'org-roam-protocol)
   (use-package! org-roam-server
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 8080
-        org-roam-server-authenticate nil
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
+    :config
+    (setq org-roam-server-host "127.0.0.1"
+          org-roam-server-port 8080
+          org-roam-server-authenticate nil
+          org-roam-server-export-inline-images t
+          org-roam-server-serve-files nil
+          org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+          org-roam-server-network-poll t
+          org-roam-server-network-arrows nil
+          org-roam-server-network-label-truncate t
+          org-roam-server-network-label-truncate-length 60
+          org-roam-server-network-label-wrap-length 20))
 
   ;; Function to capture quotes from pdf
   (defun org-roam-capture-pdf-active-region ()
-  (let* ((pdf-buf-name (plist-get org-capture-plist :original-buffer))
-         (pdf-buf (get-buffer pdf-buf-name)))
-    (if (buffer-live-p pdf-buf)
-        (with-current-buffer pdf-buf
-          (car (pdf-view-active-region-text)))
-      (user-error "Buffer %S not alive." pdf-buf-name))))
+    (let* ((pdf-buf-name (plist-get org-capture-plist :original-buffer))
+           (pdf-buf (get-buffer pdf-buf-name)))
+      (if (buffer-live-p pdf-buf)
+          (with-current-buffer pdf-buf
+            (car (pdf-view-active-region-text)))
+        (user-error "Buffer %S not alive." pdf-buf-name))))
 
   ;; org-roam-bibtex stuff
   (use-package! org-roam-bibtex
@@ -348,7 +378,7 @@
 (after! flycheck
   (setq flycheck-textlint-config "~/.config/textlint/textlintrc.json")
   (setq flycheck-textlint-executable "~/npm-workspace/node_modules/.bin/textlint")
-)
+  )
 
 ;; For calendar support
 (defun my-open-calendar()
@@ -360,10 +390,10 @@
     )))
 
 ;; Spelling related
- (global-set-key (kbd "C-c N")
-  (lambda()(interactive)
-    (ispell-change-dictionary "dutch")
-    (flyspell-buffer)))
+(global-set-key (kbd "C-c N")
+                (lambda()(interactive)
+                  (ispell-change-dictionary "dutch")
+                  (flyspell-buffer)))
 
 ;; Adding some new global keys
 (map! :leader
