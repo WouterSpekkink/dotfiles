@@ -1,4 +1,6 @@
 #!/bin/sh
 set -e
 
-emacsclient -c -a emacs -F '((transient . t))' -e '(+org-capture/open-frame)'
+emacsclient org-protocol://capture?template=t&title=TITLE?body=BODY
+
+

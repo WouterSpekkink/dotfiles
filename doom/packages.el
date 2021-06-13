@@ -48,16 +48,18 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
-(package! org-ref :pin "2a91b6f67dc3116b0b688c1242ce67d90d833326")
+;(package! org-ref :pin "2a91b6f67dc3116b0b688c1242ce67d90d833326")
+(package! org-ref)
 (package! ess-view-data)
 (package! key-chord
   :recipe (:host github :repo "emacsorphanage/key-chord"
            :files ("key-chord.el")))
 (package! org-roam-server)
 (package! org-bullets)
-(package! mu4e-alert)
+;;(package! mu4e-alert)
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 (unpin! org-roam company-org-roam)
 (package! acme-mode
   :recipe (:host github :repo "theyamo/acme-mode.el"))
+(package! org-capture-pop-frame)

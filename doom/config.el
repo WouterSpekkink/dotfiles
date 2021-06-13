@@ -35,50 +35,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Setup for mu4e
-(after! mu4e
-  (setq mu4e-root-maildir (expand-file-name "~/.local/share/mail/essb") ; the rest of the mu4e folders are RELATIVE to this one
-        mu4e-get-mail-command "mbsync -a -c \"$XDG_CONFIG_HOME/isync/mbsyncrc\""
-        mu4e-index-update-in-background t
-        mu4e-use-fancy-chars t
-        mu4e-view-show-addresses t
-        mu4e-view-show-images t
-        mu4e-compose-format-flowed t
-        mu4e-compose-signature-auto-include nil
-        mu4e-view-use-gnus t
-                                        ;mu4e-compose-in-new-frame t
-        mu4e-change-filenames-when-moving t ;; http://pragmaticemacs.com/emacs/fixing-duplicate-uid-errors-when-using-mbsync-and-mu4e/
-        ;; Message Formatting and sending
-        message-send-mail-function 'smtpmail-send-it
-        message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n"
-        message-citation-line-function 'message-insert-formatted-citation-line
-        message-kill-buffer-on-exit t
-
-        ;; Org mu4e
-        org-mu4e-convert-to-html t
-        )
-  (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
-  (add-hook 'mu4e-compose-mode-hook (lambda() (use-hard-newlines -1))))
-
-;; Email alert
-(add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
-
-;; Setup email account
-(set-email-account! "essb"
-                    '((mu4e-sent-folder         .       "/essb/Sent Items")
-                      (mu4e-drafts-folder       .       "/essb/Drafts")
-                      (mu4e-trash-folder        .       "/essb/Deleted Items")
-                      (mu4e-refile-folder       .       "/essb/All Mail")
-                      (smtpmail-smtp-user       .       "45995wsp@eur.nl")
-                      (smtpmail-smtp-server     .       "smtp.office365.com")
-                      (smtpmail-smtp-servce     .       587)
-                      (smtpmail-stream-type     .       starttls)
-                      (user-mail-address        .       "spekkink@essb.eur.nl")
-                      (mu4e-update-interval     .       300))
-                    t)
-(after! org-msg
-  (setq org-msg-default-alternatives nil))
-
 ;; Exit insert mode by pressing j twice quickly
 (setq key-chord-two-keys-delay 0.1)
 (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
@@ -157,16 +113,46 @@
                 ("DONE" ("WAIT") ("KILL") ("HOLD")))))
 
   ;; org capture related stuff
+  (use-package! org-capture-pop-frame)
   (setq org-capture-templates
-        (quote (("r" "respond" entry (file+headline "~/org/refile.org" "Emails")
-                 "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
-                ("p" "project" entry (file+headline "~/org/refile.org" "Projects")
+        (quote (("p" "project" entry (file+headline "~/org/refile.org" "Projects")
                  "* PROJ %?\n%U\n%a\n")
                 ("t" "todo" entry (file+headline "~/org/refile.org" "Tasks")
                  "* TODO %?\nSCHEDULED: %t\n%U\n%a\n")
                 ("i" "idea" entry (file+headline "~/org/refile.org" "Ideas")
                  "* IDEA %?\n%U\n%a\n")
-                )))
+                ("p" "Protocol" entry (file+headline "~/org/refile.org" "Emails")
+                 "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+	        ("L" "Protocol Link" entry (file+headline "~/org/refile.org" "Emails")
+                 "* %? [[%:link][%:description]] \nCaptured On: %U"))))
+
+  ;; Kill capture frame
+  (defvar kk/delete-frame-after-capture 0 "Whether to delete the last frame after the current capture")
+
+  (defun kk/delete-frame-if-neccessary (&rest r)
+    (cond
+     ((= kk/delete-frame-after-capture 0) nil)
+     ((> kk/delete-frame-after-capture 1)
+      (setq kk/delete-frame-after-capture (- kk/delete-frame-after-capture 1)))
+     (t
+      (setq kk/delete-frame-after-capture 0)
+      (delete-frame))))
+
+  (advice-add 'org-capture-finalize :after 'kk/delete-frame-if-neccessary)
+  (advice-add 'org-capture-kill :after 'kk/delete-frame-if-neccessary)
+  (advice-add 'org-capture-refile :after 'kk/delete-frame-if-neccessary)
+
+  ;; Stuff for capturing external things
+ (defun make-capture-frame (&optional capture-url)  
+   "Create a new frame and run org-capture."  
+   (interactive)  
+   (make-frame '((name . "capture") 
+                 (width . 120) 
+                 (height . 15)))  
+   (select-frame-by-name "capture") 
+   (setq word-wrap 1)
+   (setq truncate-lines nil)
+   (if capture-url (org-protocol-capture capture-url) (org-capture)))
 
   ;; org refile related stuff
   (setq org-refle-targets (quote ((nil :maxlevel . 9)
@@ -247,6 +233,14 @@
                  ("\\book{%s}" . "\\book*{%s}")
                  ("\\part{%s}" . "\\part*{%s}")
                  ("\\chapter{%s} .\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("paper"
+                 "\\documentclass{paper}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
