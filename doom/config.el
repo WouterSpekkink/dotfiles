@@ -158,13 +158,15 @@
   ;; org capture related stuff
   (use-package! org-capture-pop-frame)
   (setq org-capture-templates
-        (quote (("p" "project" entry (file+headline "~/org/refile.org" "Projects")
+        (quote (("r" "respond" entry (file+headline "~/org/refile.org" "Emails")
+                 "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
+                ("p" "project" entry (file+headline "~/org/refile.org" "Projects")
                  "* PROJ %?\n%U\n%a\n")
                 ("t" "todo" entry (file+headline "~/org/refile.org" "Tasks")
                  "* TODO %?\nSCHEDULED: %t\n%U\n%a\n")
                 ("i" "idea" entry (file+headline "~/org/refile.org" "Ideas")
-                 "* IDEA %?\n%U\n%a\n"))))
-
+                 "* IDEA %?\n%U\n%a\n")
+                )))
   ;; Kill capture frame
   (defvar kk/delete-frame-after-capture 0 "Whether to delete the last frame after the current capture")
 
