@@ -167,6 +167,12 @@
                 ("i" "idea" entry (file+headline "~/org/refile.org" "Ideas")
                  "* IDEA %?\n%U\n%a\n")
                 )))
+
+ ;; org-caldav
+ (after! org-caldav
+   (setq org-caldav-url "http://localhost:1080/users/45995wsp@eur.nl/"
+         org-caldav-calendar-id "calendar"))
+
   ;; Kill capture frame
   (defvar kk/delete-frame-after-capture 0 "Whether to delete the last frame after the current capture")
 

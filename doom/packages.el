@@ -63,3 +63,5 @@
 (package! acme-mode
   :recipe (:host github :repo "theyamo/acme-mode.el"))
 (package! org-capture-pop-frame)
+(package! org-caldav
+  :recipe (:host github :repo "dempte/org-caldav"))
