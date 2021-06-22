@@ -26,6 +26,7 @@ init: ## deploy dotfiles
 	$(LN) $(PWD)/exchange2org/exchange2orgconfig.py $(HOME)/.config/exchange2org/exchange2orgconfig.py
 	$(LN) $(PWD)/newsboat/config $(HOME)/.config/newsboat/config
 	$(LN) $(PWD)/newsboat/urls $(HOME)/.config/newsboat/urls
+	$(LN) $(PWD)/isync/mbsyncrc $(HOME)/.config/isync/mbsyncrc
 	$(SLN) $(PWD)/profile/profile /etc/profile
 
 execs: 

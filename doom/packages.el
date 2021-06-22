@@ -56,7 +56,7 @@
            :files ("key-chord.el")))
 (package! org-roam-server)
 (package! org-bullets)
-;;(package! mu4e-alert)
+(package! mu4e-alert)
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 (unpin! org-roam company-org-roam)

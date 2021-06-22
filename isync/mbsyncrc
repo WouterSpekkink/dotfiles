@@ -1,0 +1,26 @@
+IMAPAccount essb
+Host localhost
+Port 1143
+User 45995wsp@eur.nl
+AuthMechs LOGIN
+SSLType NONE
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.config/isync/password.gpg"
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 5
+
+IMAPStore essb-remote
+Account essb
+
+MaildirStore essb-local
+Path ~/.local/share/mail/essb/
+Inbox ~/.local/share/mail/essb/Inbox
+SubFolders LEGACY
+
+Channel essb
+Far :essb-remote:
+Near :essb-local:
+Patterns "INBOX" "*"
+Create Both
+Expunge Both
+Sync All
+SyncState *
