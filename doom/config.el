@@ -112,7 +112,7 @@
                                 "~/org/synced/"
                                 "~/org/org-roam/"
                                 "~/org/org-roam/daily/"
-                                "~/Documents/EUR/Writing/Q-SoPrA/")))
+                                )))
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-ellipsis " ▼ ")
   (setq org-hide-emphasis-markers t)
@@ -156,7 +156,6 @@
                 ("DONE" ("WAIT") ("KILL") ("HOLD")))))
 
   ;; org capture related stuff
-  (use-package! org-capture-pop-frame)
   (setq org-capture-templates
         (quote (("r" "respond" entry (file+headline "~/org/refile.org" "Emails")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
@@ -166,12 +165,39 @@
                  "* TODO %?\nSCHEDULED: %t\n%U\n%a\n")
                 ("i" "idea" entry (file+headline "~/org/refile.org" "Ideas")
                  "* IDEA %?\n%U\n%a\n")
+                ("e" "external" entry (file+headline "~/org/refile.org" "External")
+                 "* TODO %?\nSCHEDULED: %t\n%U\n%a\n %(progn (setq kk/delete-frame-after-capture 1) \"\")")
                 )))
 
- ;; org-caldav
- (after! org-caldav
-   (setq org-caldav-url "http://localhost:1080/users/45995wsp@eur.nl/"
-         org-caldav-calendar-id "calendar"))
+  ;; Caldav sync
+  (setq diary-location "~/.local/share/diary/")
+
+  (setq calendars
+        '(("outlook" . "http://localhost:1080/users/45995wsp@eur.nl/calendar/")
+          ))
+
+  (defun getcal (url file)
+    "Download ics file and add it to file"
+    (let ((tmpfile (url-file-local-copy url)))
+      (icalendar-import-file tmpfile file)
+      (kill-buffer (car (last (split-string tmpfile "/"))))))
+
+  (defun getcals ()
+    "Load a set of ICS calendars into Emacs diary files"
+    (interactive)
+    (mapcar #'(lambda (x)
+                (let ((file (concat diary-location (car x)))
+                      (url (cdr x)))
+                  (message (concat "Loading " url " into " file))
+                  (find-file file)
+                  ;; (flush-lines "^[& ]") ;; if you import ical as non marking
+                  (erase-buffer) ;; to avoid duplicating events
+                  (getcal url file)
+                  ))
+            calendars))
+
+  (setq org-agenda-include-diary t)
+  (setq diary-file "~/.local/share/diary/outlook")
 
   ;; Kill capture frame
   (defvar kk/delete-frame-after-capture 0 "Whether to delete the last frame after the current capture")
@@ -189,20 +215,8 @@
   (advice-add 'org-capture-kill :after 'kk/delete-frame-if-neccessary)
   (advice-add 'org-capture-refile :after 'kk/delete-frame-if-neccessary)
 
-  ;; Stuff for capturing external things
- (defun make-capture-frame (&optional capture-url)  
-   "Create a new frame and run org-capture."  
-   (interactive)  
-   (make-frame '((name . "capture") 
-                 (width . 120) 
-                 (height . 15)))  
-   (select-frame-by-name "capture") 
-   (setq word-wrap 1)
-   (setq truncate-lines nil)
-   (if capture-url (org-protocol-capture capture-url) (org-capture)))
-
   ;; org refile related stuff
-  (setq org-refle-targets (quote ((nil :maxlevel . 9)
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                   (org-agenda-files :maxlevel . 9)
                                   ("~/org/org-roam/" :maxlevel . 9))))
 
