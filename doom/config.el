@@ -101,7 +101,7 @@
   (map! :map helm-map
         "C-j" #'helm-next-line
         "C-k" #'helm-previous-line)
-)
+  )
 
 ;; org-mode related stuff
 (after! org
@@ -112,6 +112,7 @@
                                 "~/org/synced/"
                                 "~/org/org-roam/"
                                 "~/org/org-roam/daily/"
+                                "~/org/org-roam/references/"
                                 )))
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-ellipsis " ▼ ")
@@ -143,8 +144,8 @@
                  ))))
 
   (setq org-todo-keyword-faces
-       (quote (
-               ("NEXT" +-lock-constant-face bold))))
+        (quote (
+                ("NEXT" +-lock-constant-face bold))))
 
   (setq org-todo-state-tags-triggers
         (quote (("KILL" ("KILL" . t))
@@ -217,8 +218,8 @@
 
   ;; org refile related stuff
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                  (org-agenda-files :maxlevel . 9)
-                                  ("~/org/org-roam/" :maxlevel . 9))))
+                                   (org-agenda-files :maxlevel . 9)
+                                   ("~/org/org-roam/" :maxlevel . 9))))
 
   (setq org-refile-use-outline-path t)
 
@@ -258,9 +259,9 @@
 
   ;; Set up org-mode export stuff
   (setq org-latex-to-mathml-convert-command
-      "java -jar %j -unicode -force -df %o %I"
-      org-latex-to-mathml-jar-file
-      "/home/wouter/Tools/math2web/mathtoweb.jar")
+        "java -jar %j -unicode -force -df %o %I"
+        org-latex-to-mathml-jar-file
+        "/home/wouter/Tools/math2web/mathtoweb.jar")
 
   (add-to-list 'org-latex-classes
                '("apa6"
@@ -316,7 +317,7 @@
   ;; org-noter stuff
   (after! org-noter
     (setq
-     org-noter-notes-search-path '("~/org/org-roam/")
+     org-noter-notes-search-path '("~/org/org-roam/references/")
      org-noter-hide-other nil
      org-noter-separate-notes-from-heading t
      org-noter-always-create-frame nil)
@@ -353,14 +354,26 @@
 
   (add-hook 'after-init-hook 'org-roam-mode)
 
+  ;; org-roam-bibtex stuff
+  (use-package! org-roam-bibtex)
+  (org-roam-bibtex-mode)
+
+  (setq orb-preformat-keywords
+        '("citekey" "title" "url" "author-or-editor" "keywords" "file")
+        orb-process-file-keyword t
+        orb-file-field-extensions '("pdf"))
+
   ;; Let's set up some org-roam capture templates
   (setq org-roam-capture-templates
         (quote (("d" "default" plain (function org-roam--capture-get-point)
                  "%?"
-                 :file-name "%<%Y-%m-%d-%H%M%S>-${slug}"
-                 :head "#+title: ${title}\n"
+                 :if-new (file+head "%<%Y-%m-%d-%H%M%S>-${slug}.org"
+                 "#+title: ${title}\n")
                  :unnarrowed t)
-                )))
+                ("r" "bibliography reference" plain
+                 (file "~/org/org-roam/templates/orb-capture")
+                 :if-new
+                 (file+head "references/${citekey}.org" "#+title: ${title}\n")))))
 
   ;; And now we set necessary variables for org-roam-dailies
   (setq org-roam-dailies-capture-templates
@@ -369,22 +382,6 @@
            "* %?"
            :file-name "daily/%<%Y-%m-%d>"
            :head "#+title: %<%Y-%m-%d>\n\n")))
-
-  ;; For org-roam server
-  (require 'org-roam-protocol)
-  (use-package! org-roam-server
-    :config
-    (setq org-roam-server-host "127.0.0.1"
-          org-roam-server-port 8080
-          org-roam-server-authenticate nil
-          org-roam-server-export-inline-images t
-          org-roam-server-serve-files nil
-          org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-          org-roam-server-network-poll t
-          org-roam-server-network-arrows nil
-          org-roam-server-network-label-truncate t
-          org-roam-server-network-label-truncate-length 60
-          org-roam-server-network-label-wrap-length 20))
 
   ;; Function to capture quotes from pdf
   (defun org-roam-capture-pdf-active-region ()
@@ -395,32 +392,16 @@
             (car (pdf-view-active-region-text)))
         (user-error "Buffer %S not alive." pdf-buf-name))))
 
-  ;; org-roam-bibtex stuff
-  (use-package! org-roam-bibtex
-    :hook (org-roam-mode . org-roam-bibtex-mode))
-
-  (setq orb-preformat-keywords
-        '("citekey" "title" "url" "author-or-editor" "keywords" "file")
-        orb-process-file-keyword t
-        orb-file-field-extensions '("pdf"))
-
-  (setq orb-templates
-        '(("r" "ref" plain(function org-roam-capture--get-point)
-           ""
-           :file-name "${citekey}"
-           :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
-- tags ::
-- keywords :: ${keywords}
-
-* Notes
-:PROPERTIES:
-:Custom_ID: ${citekey}
-:URL: ${url}
-:AUTHOR: ${author-or-editor}
-:NOTER_DOCUMENT: ${file}
-:NOTER_PAGE:
-:END:")))
-  )
+  ;; For org-roam-ui
+  (use-package! websocket)
+  (use-package! org-roam-ui-follow-mode
+    :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+)
 
 ;; For deft
 (after! deft

@@ -54,12 +54,14 @@
 (package! key-chord
   :recipe (:host github :repo "emacsorphanage/key-chord"
            :files ("key-chord.el")))
-(package! org-roam-server)
+(package! websocket)
+(package! simple-httpd)
 (package! org-bullets)
+(package! org-roam-ui
+  :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! mu4e-alert)
 (package! org-roam-bibtex
-  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+ :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 (unpin! org-roam company-org-roam)
 (package! acme-mode
   :recipe (:host github :repo "theyamo/acme-mode.el"))
-;(package! org-capture-pop-frame)
