@@ -376,12 +376,12 @@
                  (file+head "references/${citekey}.org" "#+title: ${title}\n")))))
 
   ;; And now we set necessary variables for org-roam-dailies
+  (setq org-roam-dailies-directory "daily/")
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
-           #'org-roam-capture--get-point
            "* %?"
-           :file-name "daily/%<%Y-%m-%d>"
-           :head "#+title: %<%Y-%m-%d>\n\n")))
+           :if-new (file+head "%<%Y-%m-%d>.org"
+           "#+title: %<%Y-%m-%d>\n"))))
 
   ;; Function to capture quotes from pdf
   (defun org-roam-capture-pdf-active-region ()
