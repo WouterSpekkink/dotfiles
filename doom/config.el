@@ -405,9 +405,11 @@
 
 ;; For deft
 (after! deft
-  (setq deft-extensions '("org"))
-  (setq deft-directory "~/org/org-roam/")
-  (setq deft-recursive t))
+  (setq deft-extensions '("org")
+        deft-directory "~/org/org-roam/"
+        deft-recursive t
+        deft-strip-summary-regexp ":PROPERTIES:\n\\(.+\n\\)+:END:\n"
+        deft-use-filename-as-title t))
 
 ;; For textklintrc
 (after! flycheck
