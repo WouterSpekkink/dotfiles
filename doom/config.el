@@ -365,7 +365,7 @@
 
   ;; Let's set up some org-roam capture templates
   (setq org-roam-capture-templates
-        (quote (("d" "default" plain (function org-roam--capture-get-point)
+        (quote (("d" "default" plain
                  "%?"
                  :if-new (file+head "%<%Y-%m-%d-%H%M%S>-${slug}.org"
                  "#+title: ${title}\n")
