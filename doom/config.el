@@ -390,7 +390,7 @@
       (if (buffer-live-p pdf-buf)
           (with-current-buffer pdf-buf
             (car (pdf-view-active-region-text)))
-        (user-error "Buffer %S not alive." pdf-buf-name))))
+        (user-error "Buffer %S not alive." pdf-buf-name)))
 
   ;; For org-roam-ui
   (use-package! websocket)
@@ -399,9 +399,7 @@
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-)
+          org-roam-ui-update-on-save t))))
 
 ;; For deft
 (after! deft
