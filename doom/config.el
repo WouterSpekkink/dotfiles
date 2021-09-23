@@ -60,9 +60,7 @@
         message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n"
         message-citation-line-function 'message-insert-formatted-citation-line
         message-kill-buffer-on-exit t
-
-        org-mu4e-convert-to-html t
-        )
+        org-mu4e-convert-to-html t)
   (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
   (add-hook 'mu4e-compose-mode-hook (lambda() (use-hard-newlines -1))))
 
@@ -317,7 +315,7 @@
   ;; org-noter stuff
   (after! org-noter
     (setq
-     org-noter-notes-search-path '("~/org/org-roam/references/")
+     org-noter-notes-search-path "~/org/org-roam/references/"
      org-noter-hide-other nil
      org-noter-separate-notes-from-heading t
      org-noter-always-create-frame nil)
@@ -350,7 +348,7 @@
 
 ;; org-roam related things
 (after! org-roam
-  (setq org-roam-directory "~/org/org-roam")
+  (setq org-roam-directory "~/org/org-roam/")
 
   (add-hook 'after-init-hook 'org-roam-mode)
 
@@ -429,6 +427,9 @@
                 (lambda()(interactive)
                   (ispell-change-dictionary "dutch")
                   (flyspell-buffer)))
+
+;; For inline evaluation of elisp
+(eros-mode 1)
 
 ;; Adding some new global keys
 (map! :leader
