@@ -67,16 +67,14 @@ alias doomdoctor="$HOME/.config/emacs/bin/doom doctor"
 alias doompurge="$HOME/.config/emacs/bin/doom purge"
 alias doomclean="$HOME/.config/emacs/bin/doom clean"
 alias doombuild="$HOME/.config/emacs/bin/doom build"
-alias importcal="python $HOME/Tools/exchange2org/__init__.py --calendar ~/org/outlook.org --startday 6 --endday 90"
-#alias qualcoder="python3 $HOME/Tools/QualCoder/qualcoder/qualcoder.py"
 alias exult="exult -c $HOME/.local/share/exult/exult.cfg"
 alias gephi="$HOME/Tools/gephi-0.9.2/bin/gephi"
-alias dwarf="$HOME/Games/df_linux/df"
 alias ls="ls --color"
 alias vnc="$HOME/Tools/VNC/VNC-Viewer-6.20.529-Linux-x64 & disown"
 alias monright="xrandr --output HDMI-0 --auto --right-of eDP-1-1"
 alias monleft="xrandr --output HDMI-0 --auto --left-of eDP-1-1"
 alias swnv="optimus-manager --switch nvidia"
+alias gemsync="rsync -aP ~/Sites/gemini/ gemini:~/gemini/"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'

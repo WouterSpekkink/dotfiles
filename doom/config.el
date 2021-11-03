@@ -86,20 +86,18 @@
   (setq org-msg-default-alternatives nil))
 
 ;; helm-bibtex related stuff
-(after! helm
-  (use-package! helm-bibtex
-    :custom
-    (bibtex-completion-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
-    (reftex-default-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
-    (bibtex-completion-pdf-field "file")
-    :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
-  (map! :leader
-        :desc "Open literature database"
-        "o l" #'helm-bibtex)
-  (map! :map helm-map
-        "C-j" #'helm-next-line
-        "C-k" #'helm-previous-line)
-  )
+(use-package! helm-bibtex
+  :custom
+  (bibtex-completion-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
+  (reftex-default-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
+  (bibtex-completion-pdf-field "file")
+  :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
+(map! :leader
+      :desc "Open literature database"
+      "o l" #'helm-bibtex)
+(map! :map helm-map
+      "C-j" #'helm-next-line
+      "C-k" #'helm-previous-line)
 
 ;; org-mode related stuff
 (after! org

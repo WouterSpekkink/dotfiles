@@ -62,8 +62,7 @@
 (package! mu4e-alert)
 (package! org-roam-bibtex
  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
-(unpin! org-roam company-org-roam)
+(unpin! company-org-roam bibtex-completion helm-bibtex)
 (package! acme-mode
   :recipe (:host github :repo "theyamo/acme-mode.el"))
 
-(package! helm-bibtex)
