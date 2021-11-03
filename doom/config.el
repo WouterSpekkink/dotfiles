@@ -85,20 +85,6 @@
 (after! org-msg
   (setq org-msg-default-alternatives nil))
 
-;; helm-bibtex related stuff
-(use-package! helm-bibtex
-  :custom
-  (bibtex-completion-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
-  (reftex-default-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
-  (bibtex-completion-pdf-field "file")
-  :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
-(map! :leader
-      :desc "Open literature database"
-      "o l" #'helm-bibtex)
-(map! :map helm-map
-      "C-j" #'helm-next-line
-      "C-k" #'helm-previous-line)
-
 ;; org-mode related stuff
 (after! org
   ;; Set org directories
@@ -227,6 +213,14 @@
 
   ;; Prevent adding org agenda files
   (map! :map org-mode-map "C-c [" nil)
+
+  ;; helm-bibtex related stuff
+  (use-package! helm-bibtex
+    :custom
+    (bibtex-completion-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
+    (reftex-default-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
+    (bibtex-completion-pdf-field "file")
+    :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
 
   ;; Set up org-ref stuff
   (use-package! org-ref
@@ -364,7 +358,7 @@
         (quote (("d" "default" plain
                  "%?"
                  :if-new (file+head "%<%Y-%m-%d-%H%M%S>-${slug}.org"
-                 "#+title: ${title}\n")
+                                    "#+title: ${title}\n")
                  :unnarrowed t)
                 ("r" "bibliography reference" plain
                  (file "~/org/org-roam/templates/orb-capture")
@@ -377,7 +371,7 @@
         '(("d" "default" entry
            "* %?"
            :if-new (file+head "%<%Y-%m-%d>.org"
-           "#+title: %<%Y-%m-%d>\n"))))
+                              "#+title: %<%Y-%m-%d>\n"))))
 
   ;; Function to capture quotes from pdf
   (defun org-roam-capture-pdf-active-region ()
@@ -388,14 +382,14 @@
             (car (pdf-view-active-region-text)))
         (user-error "Buffer %S not alive." pdf-buf-name)))
 
-  ;; For org-roam-ui
-  (use-package! websocket)
-  (use-package! org-roam-ui-follow-mode
-    :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t))))
+    ;; For org-roam-ui
+    (use-package! websocket)
+    (use-package! org-roam-ui-follow-mode
+      :hook (after-init . org-roam-ui-mode)
+      :config
+      (setq org-roam-ui-sync-theme t
+            org-roam-ui-follow t
+            org-roam-ui-update-on-save t))))
 
 ;; For deft
 (after! deft
@@ -437,3 +431,11 @@
 (map! :leader
       :desc "Org noter"
       "n p" #'org-noter)
+
+(map! :leader
+      :desc "Open literature database"
+      "o l" #'helm-bibtex)
+
+(map! :map helm-map
+      "C-j" #'helm-next-line
+      "C-k" #'helm-previous-line)
