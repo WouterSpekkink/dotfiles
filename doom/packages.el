@@ -65,4 +65,3 @@
 (unpin! company-org-roam bibtex-completion helm-bibtex)
 (package! acme-mode
   :recipe (:host github :repo "theyamo/acme-mode.el"))
-

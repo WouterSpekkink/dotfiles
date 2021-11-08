@@ -25,7 +25,8 @@ dmenu\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
 slstatusbar\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
 picom\t$DMEDITOR $HOME/dotfiles/picom/picom.conf
 newsboat config\t$DMEDITOR $HOME/dotfiles/newsboat/config
-newsboat urls\t$DMEDITOR $HOME/dotfiles/newsboat/urls"
+newsboat urls\t$DMEDITOR $HOME/dotfiles/newsboat/urls
+mbsync config\t$DMEDITOR $HOME/.config/isync/mbsyncrc"
 
 choice="$(echo "$cmds" | cut -f 1 | dmenu -l 20 -p "Edit config of:")" || exit 1
 
