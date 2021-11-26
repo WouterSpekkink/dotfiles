@@ -353,13 +353,14 @@
     (setq org-roam-capture-templates
           (quote (("d" "default" plain
                    "%?"
-                   :if-new (file+head "%<%Y-%m-%d-%H%M%S>-${slug}.org"
+                   :target
+                   (file+head "%<%Y-%m-%d-%H%M%S>-${slug}.org"
                                       "#+title: ${title}\n")
                    :unnarrowed t)
                   ("r" "bibliography reference" plain
                    (file "~/org/org-roam/templates/orb-capture")
                    org
-                   :if-new
+                   :target
                    (file+head "references/${citekey}.org" "#+title: ${title}\n")))))
 
     ;; And now we set necessary variables for org-roam-dailies
