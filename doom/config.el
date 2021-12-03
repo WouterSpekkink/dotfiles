@@ -359,7 +359,6 @@
                    :unnarrowed t)
                   ("r" "bibliography reference" plain
                    (file "~/org/org-roam/templates/orb-capture")
-                   org
                    :target
                    (file+head "references/${citekey}.org" "#+title: ${title}\n")))))
 
@@ -368,7 +367,8 @@
     (setq org-roam-dailies-capture-templates
           '(("d" "default" entry
              "* %?"
-             :if-new (file+head "%<%Y-%m-%d>.org"
+             :target
+             (file+head "%<%Y-%m-%d>.org"
                                 "#+title: %<%Y-%m-%d>\n"))))
 
     ;; Function to capture quotes from pdf
