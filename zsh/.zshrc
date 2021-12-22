@@ -75,6 +75,7 @@ alias monright="xrandr --output HDMI-0 --auto --right-of eDP-1-1"
 alias monleft="xrandr --output HDMI-0 --auto --left-of eDP-1-1"
 alias swnv="optimus-manager --switch nvidia"
 alias gemsync="rsync -aP ~/Sites/gemini/ gemini:~/gemini/"
+alias mail="$HOME/.local/bin/tutanota-desktop-linux.AppImage & disown"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'
