@@ -70,12 +70,12 @@ alias doombuild="$HOME/.config/emacs/bin/doom build"
 alias exult="exult -c $HOME/.local/share/exult/exult.cfg"
 alias gephi="$HOME/Tools/gephi-0.9.2/bin/gephi"
 alias ls="ls --color"
-alias vnc="$HOME/Tools/VNC/VNC-Viewer-6.20.529-Linux-x64 & disown"
+alias vnc="$HOME/Tools/VNC/VNC-Viewer-6.20.529-Linux-x64 & disown && exit"
 alias monright="xrandr --output HDMI-0 --auto --right-of eDP-1-1"
 alias monleft="xrandr --output HDMI-0 --auto --left-of eDP-1-1"
 alias swnv="optimus-manager --switch nvidia"
 alias gemsync="rsync -aP ~/Sites/gemini/ gemini:~/gemini/"
-alias mail="$HOME/.local/bin/tutanota-desktop-linux.AppImage & disown"
+alias mail="$HOME/.local/bin/tutanota-desktop-linux.AppImage & disown && exit"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'
