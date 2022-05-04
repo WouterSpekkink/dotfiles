@@ -77,6 +77,8 @@ alias swnv="optimus-manager --switch nvidia"
 alias gemsync="rsync -aP ~/Sites/gemini/ gemini:~/gemini/"
 alias mail="$HOME/.local/bin/tutanota-desktop-linux.AppImage & disown && exit"
 alias trash="trash -i"
+alias pioneer="cd $HOME/Games/pioneer && ./pioneer"
+alias frontier="cd $HOME/Games/frontier && dosbox frontier.exe -fullscreen"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'

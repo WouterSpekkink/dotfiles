@@ -80,7 +80,8 @@
                       (user-mail-address                .       "spekkink@essb.eur.nl")
                       (mu4e-update-interval             .       300))
                     t)
- ;; org-msg
+
+;; org-msg
 (after! org-msg
   (setq org-msg-default-alternatives nil))
 
