@@ -318,22 +318,38 @@
      org-noter-notes-search-path "~/org/org-roam/references/"
      org-noter-hide-other nil
      org-noter-separate-notes-from-heading t
-     org-noter-always-create-frame nil)
+     org-noter-always-create-frame t)
     (map!
-     :map org-noter-doc-mode-map
-     :leader
+     :after org-noter
+     :map org-noter-notes-mode-map
      :desc "Insert note"
-     "m i" #'org-noter-insert-note
+     "C-M-i" #'org-noter-insert-note
      :desc "Insert precise note"
-     "m p" #'org-noter-insert-precise-note
+     "C-M-p" #'org-noter-insert-precise-note
      :desc "Go to previous note"
-     "m k" #'org-noter-sync-prev-note
+     "C-M-k" #'org-noter-sync-prev-note
      :desc "Go to next note"
-     "m j" #'org-noter-sync-next-note
+     "C-M-j" #'org-noter-sync-next-note
      :desc "Create skeleton"
-     "m s" #'org-noter-create-skeleton
+     "C-M-s" #'org-noter-create-skeleton
      :desc "Kill session"
-     "m q" #'org-noter-kill-session
+     "C-M-q" #'org-noter-kill-session
+     )
+    (map!
+     :after org-noter
+     :map org-noter-doc-mode-map
+     :desc "Insert note"
+     "C-M-i" #'org-noter-insert-note
+     :desc "Insert precise note"
+     "C-M-p" #'org-noter-insert-precise-note
+     :desc "Go to previous note"
+     "C-M-k" #'org-noter-sync-prev-note
+     :desc "Go to next note"
+     "C-M-j" #'org-noter-sync-next-note
+     :desc "Create skeleton"
+     "C-M-s" #'org-noter-create-skeleton
+     :desc "Kill session"
+     "C-M-q" #'org-noter-kill-session
      )
     )
   (after! org-roam
@@ -379,17 +395,21 @@
         (if (buffer-live-p pdf-buf)
             (with-current-buffer pdf-buf
               (car (pdf-view-active-region-text)))
-          (user-error "Buffer %S not alive" pdf-buf-name)))
+          (user-error "Buffer %S not alive" pdf-buf-name))))
 
-      ;; For org-roam-ui
-      (use-package! websocket)
-      (use-package! org-roam-ui-follow-mode
-        :hook (after-init . org-roam-ui-mode)
-        :config
-        (setq org-roam-ui-sync-theme t
-              org-roam-ui-follow t
-              org-roam-ui-update-on-save t))))
+    ;; For org-roam-ui
+    (use-package! websocket)
+    (use-package! org-roam-ui-follow-mode
+      :hook (after-init . org-roam-ui-mode)
+      :config
+      (setq org-roam-ui-sync-theme t
+            org-roam-ui-follow t
+            org-roam-ui-update-on-save t))
+
+    ;; Temporary workaround for org-roam minibuffer issues
+    (setq org-roam-node-display-template "${title}")
   )
+)
 
 ;; This is to use pdf-tools instead of doc-viewer
 (use-package! pdf-tools
