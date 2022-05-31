@@ -452,6 +452,9 @@
 ;; For inline evaluation of elisp
 (eros-mode 1)
 
+;; Setting default dictionary
+(setq ispell-dictionary "en_GB")
+
 ;; Adding some new global keys
 (map! :leader
       :desc "Open calendar"
