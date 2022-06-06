@@ -108,8 +108,6 @@ convertlit
 coreutils
 cracklib
 cryptsetup
-cuda
-cudnn
 cups
 cups-filters
 cups-pdf
@@ -206,6 +204,7 @@ gawk
 gc
 gcc
 gcc-libs
+gcc11-libs
 gconf
 gcr
 gd
