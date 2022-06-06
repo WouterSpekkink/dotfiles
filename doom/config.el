@@ -45,23 +45,23 @@
 
 ;; mu4e setup
 (after! mu4e
-        (setq mu4e-root-maildir (expand-file-name "~/.local/share/mail/essb")
-              mu4e-get-mail-command "mbsync -a -c \"$XDG_CONFIG_HOME/isync/mbsyncrc\""
-              mu4e-index-update-in-background t
-              mu4e-use-fancy-chars t
-              mu4e-view-show-addresses t
-              mu4e-view-show-images t
-              mu4e-compose-format-flowed t
-              mu4e-compose-signature-auto-include nil
-              mu4e-view-use-gnus t
-              mu4e-change-filenames-when-moving t
-              message-send-mail-function 'smtpmail-send-it
-              message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n"
-              message-citation-line-function 'message-insert-formatted-citation-line
-              message-kill-buffer-on-exit t
-              org-mu4e-convert-to-html t)
-        (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
-        (add-hook 'mu4e-compose-mode-hook (lambda() (use-hard-newlines -1))))
+  (setq mu4e-root-maildir (expand-file-name "~/.local/share/mail/essb")
+        mu4e-get-mail-command "mbsync -a -c \"$XDG_CONFIG_HOME/isync/mbsyncrc\""
+        mu4e-index-update-in-background t
+        mu4e-use-fancy-chars t
+        mu4e-view-show-addresses t
+        mu4e-view-show-images t
+        mu4e-compose-format-flowed t
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-use-gnus t
+        mu4e-change-filenames-when-moving t
+        message-send-mail-function 'smtpmail-send-it
+        message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n"
+        message-citation-line-function 'message-insert-formatted-citation-line
+        message-kill-buffer-on-exit t
+        org-mu4e-convert-to-html t)
+  (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
+  (add-hook 'mu4e-compose-mode-hook (lambda() (use-hard-newlines -1))))
 
 ;; Email alert
 (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
@@ -227,11 +227,11 @@
     :custom
     (org-ref-default-bibliography "/home/wouter/Tools/Zotero/bibtex/library.bib")
     (org-ref-default-citation-link "citep")
-          (org-ref-insert-link-function 'org-ref-insert-link-hydra/body)
-          (org-ref-insert-cite-function 'org-ref-cite-insert-helm)
-          (org-ref-insert-label-function 'org-ref-insert-label-link)
-          (org-ref-insert-ref-function 'org-ref-insert-ref-link)
-          (org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
+    (org-ref-insert-link-function 'org-ref-insert-link-hydra/body)
+    (org-ref-insert-cite-function 'org-ref-cite-insert-helm)
+    (org-ref-insert-label-function 'org-ref-insert-label-link)
+    (org-ref-insert-ref-function 'org-ref-insert-ref-link)
+    (org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
 
   (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
   (define-key org-mode-map (kbd "s-[") 'org-ref-insert-link-hydra/body)
@@ -372,7 +372,7 @@
                    "%?"
                    :target
                    (file+head "%<%Y-%m-%d-%H%M%S>-${slug}.org"
-                                      "#+title: ${title}\n")
+                              "#+title: ${title}\n")
                    :unnarrowed t)
                   ("r" "bibliography reference" plain
                    (file "~/org/org-roam/templates/orb-capture")
@@ -386,7 +386,7 @@
              "* %?"
              :target
              (file+head "%<%Y-%m-%d>.org"
-                                "#+title: %<%Y-%m-%d>\n"))))
+                        "#+title: %<%Y-%m-%d>\n"))))
 
     ;; Function to capture quotes from pdf
     (defun org-roam-capture-pdf-active-region ()
@@ -408,8 +408,8 @@
 
     ;; Temporary workaround for org-roam minibuffer issues
     (setq org-roam-node-display-template "${title}")
+    )
   )
-)
 
 ;; This is to use pdf-tools instead of doc-viewer
 (use-package! pdf-tools
