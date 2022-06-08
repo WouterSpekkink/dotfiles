@@ -420,6 +420,8 @@
     (advice-add 'org-roam-node-read--to-candidate :override #'my/org-roam-node-read--to-candidate)
                                         ;(setq org-roam-node-display-template "${title}")
                                         ;)
+    ;; Workaround for org-roam-buffer opening links in split buffer
+    (add-hook 'org-follow-link-hook #'doom/window-maximize-vertically)
     ))
 
 ;; This is to use pdf-tools instead of doc-viewer
@@ -482,3 +484,4 @@
 (map! :map helm-map
       "C-j" #'helm-next-line
       "C-k" #'helm-previous-line)
+
