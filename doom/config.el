@@ -406,8 +406,7 @@
             org-roam-ui-follow t
             org-roam-ui-update-on-save t))
 
-    ;; Temporary workaround for org-roam minibuffer issues
-    ;; REVIEW Remove when addressed upstream. See org-roam/org-roam#2066.
+    ;; Workaround for org-roam minibuffer issues
     (defun my/org-roam-node-read--to-candidate (node template)
       "Return a minibuffer completion candidate given NODE.
   TEMPLATE is the processed template used to format the entry."
@@ -416,12 +415,7 @@
                              node
                              (1- (frame-width)))))
         (cons (propertize candidate-main 'node node) node)))
-
     (advice-add 'org-roam-node-read--to-candidate :override #'my/org-roam-node-read--to-candidate)
-                                        ;(setq org-roam-node-display-template "${title}")
-                                        ;)
-    ;; Workaround for org-roam-buffer opening links in split buffer
-    (add-hook 'org-follow-link-hook #'doom/window-maximize-vertically)
     ))
 
 ;; This is to use pdf-tools instead of doc-viewer

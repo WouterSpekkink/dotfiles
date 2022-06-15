@@ -19,6 +19,7 @@ append_path '/usr/local/sbin'
 append_path '/usr/local/bin'
 append_path '/usr/bin'
 append_path '/home/wouter/.local/bin/'
+append_path '/home/wouter/.config/rust/cargo/env'
 
 # Force PATH to be environment
 export PATH
