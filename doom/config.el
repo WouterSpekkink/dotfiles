@@ -77,7 +77,6 @@
                       (smtpmail-smtp-server             .       "localhost")
                       (smtpmail-smtp-service            .       1025)
                       (smtpmail-stream-type             .       nil)
-                      (user-mail-address                .       "spekkink@essb.eur.nl")
                       (mu4e-update-interval             .       300))
                     t)
 
