@@ -22,7 +22,9 @@ dwm autostart\t$DMEDITOR $HOME/.local/share/dwm/autostart.sh
 dwm blocks\t$DMEDITOR $HOME/Git/suckless/dwmblocks/blocks.h
 st\t$DMEDITOR $HOME/Git/suckless/st/config.h
 dmenu\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
+dmenu config\t$DMEDITOR $HOME/dotfiles/scripts/dmenuconfig
 slstatusbar\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
+pacman\tsudo $DMEDITOR /etc/pacman.conf
 picom\t$DMEDITOR $HOME/dotfiles/picom/picom.conf
 newsboat config\t$DMEDITOR $HOME/dotfiles/newsboat/config
 newsboat urls\t$DMEDITOR $HOME/dotfiles/newsboat/urls

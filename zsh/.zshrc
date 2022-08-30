@@ -83,6 +83,8 @@ alias mail="$HOME/.local/bin/tutanota-desktop-linux.AppImage & disown && exit"
 alias trash="trash -i"
 alias pioneer="cd $HOME/Games/pioneer && ./pioneer"
 alias frontier="cd $HOME/Games/frontier && dosbox frontier.exe -fullscreen"
+alias update="sudo pacman -Syu"
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'

@@ -77,6 +77,7 @@
                       (smtpmail-smtp-server             .       "localhost")
                       (smtpmail-smtp-service            .       1025)
                       (smtpmail-stream-type             .       nil)
+                      (user-mail-address                .       "spekkink@essb.eur.nl")
                       (mu4e-update-interval             .       300))
                     t)
 
@@ -397,9 +398,9 @@
           (user-error "Buffer %S not alive" pdf-buf-name))))
 
     ;; For org-roam-ui
+    (package! org-roam-ui)
     (use-package! websocket)
-    (use-package! org-roam-ui-follow-mode
-      :hook (after-init . org-roam-ui-mode)
+    (use-package! org-roam-ui
       :config
       (setq org-roam-ui-sync-theme t
             org-roam-ui-follow t
