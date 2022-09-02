@@ -23,7 +23,6 @@ init: ## deploy dotfiles
 	$(LN) $(PWD)/picom/picom.conf $(HOME)/.config/picom/picom.conf
 	$(LN) $(PWD)/starship/starship.toml $(HOME)/.config/starship.toml
 	$(LN) $(PWD)/textlint/textlintrc.json $(HOME)/.config/textlint/textlintrc.json
-	$(LN) $(PWD)/exchange2org/exchange2orgconfig.py $(HOME)/.config/exchange2org/exchange2orgconfig.py
 	$(LN) $(PWD)/newsboat/config $(HOME)/.config/newsboat/config
 	$(LN) $(PWD)/newsboat/urls $(HOME)/.config/newsboat/urls
 	$(LN) $(PWD)/isync/mbsyncrc $(HOME)/.config/isync/mbsyncrc
