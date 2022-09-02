@@ -26,6 +26,7 @@ init: ## deploy dotfiles
 	$(LN) $(PWD)/newsboat/config $(HOME)/.config/newsboat/config
 	$(LN) $(PWD)/newsboat/urls $(HOME)/.config/newsboat/urls
 	$(LN) $(PWD)/isync/mbsyncrc $(HOME)/.config/isync/mbsyncrc
+	$(LN) $(PWD)/dwm/autostart.sh $(HOME)/.local/share/dwm/autostart.sh
 	$(SLN) $(PWD)/profile/profile /etc/profile
 
 execs: 
