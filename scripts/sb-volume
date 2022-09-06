@@ -9,16 +9,16 @@ case $BLOCK_BUTTON in
 
 esac
 
-[ $(pamixer --get-mute) = true ] && echo 🔇 && exit
+[ $(pamixer --get-mute) = true ] && echo  && exit
 
 vol="$(pamixer --get-volume)"
 
 if [ "$vol" -gt "70" ]; then
-	icon="🔊"
+	icon=" "
 elif [ "$vol" -lt "30" ]; then
-	icon="🔈"
+	icon=" "
 else
-	icon="🔉"
+	icon=" "
 fi
 
 echo "$icon $vol%"

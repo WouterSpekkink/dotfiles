@@ -6,7 +6,6 @@ filetype off                  " required
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'neoclide/coc.nvim'
 Plug 'vim-latex/vim-latex'
 Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdtree'

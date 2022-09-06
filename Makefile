@@ -16,17 +16,14 @@ help:
 
 init: ## deploy dotfiles
 	$(LN) $(PWD)/zsh/.zshrc $(HOME)/.config/zsh/.zshrc
-	$(LN) $(PWD)/doom/init.el $(HOME)/.config/doom/init.el
-	$(LN) $(PWD)/doom/config.el $(HOME)/.config/doom/config.el
-	$(LN) $(PWD)/doom/packages.el $(HOME)/.config/doom/packages.el
 	$(LN) $(PWD)/nvim/init.vim $(HOME)/.config/nvim/init.vim
 	$(LN) $(PWD)/picom/picom.conf $(HOME)/.config/picom/picom.conf
 	$(LN) $(PWD)/starship/starship.toml $(HOME)/.config/starship.toml
 	$(LN) $(PWD)/textlint/textlintrc.json $(HOME)/.config/textlint/textlintrc.json
-	$(LN) $(PWD)/newsboat/config $(HOME)/.config/newsboat/config
-	$(LN) $(PWD)/newsboat/urls $(HOME)/.config/newsboat/urls
 	$(LN) $(PWD)/isync/mbsyncrc $(HOME)/.config/isync/mbsyncrc
 	$(LN) $(PWD)/dwm/autostart.sh $(HOME)/.local/share/dwm/autostart.sh
+	$(LN) $(PWD)/emacs/init.el $(HOME)/.config/emacs/init.el
+	$(LN) $(PWD)/emacs/keybinds.el $(HOME)/.config/emacs/keybinds.el
 	$(SLN) $(PWD)/profile/profile /etc/profile
 
 execs: 
