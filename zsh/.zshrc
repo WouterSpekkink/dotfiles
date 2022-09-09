@@ -85,6 +85,7 @@ alias pioneer="cd $HOME/Games/pioneer && ./pioneer"
 alias frontier="cd $HOME/Games/frontier && dosbox frontier.exe -fullscreen"
 alias update="sudo pacman -Syu"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias cleanup="sudo pacman -Rns $(pacman -Qtdq)"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'

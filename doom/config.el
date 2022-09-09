@@ -185,7 +185,7 @@
   ;; Kill capture frame
   (defvar kk/delete-frame-after-capture 0 "Whether to delete the last frame after the current capture")
 
-  (defun kk/delete-frame-if-neccessary (&rest r)
+  (defun kk/delete-frame-if-neccessary (&rest t)
     (cond
      ((= kk/delete-frame-after-capture 0) nil)
      ((> kk/delete-frame-after-capture 1)
