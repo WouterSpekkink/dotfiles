@@ -21,6 +21,11 @@
  "oa" '(org-agenda :wk "agenda")
  "ot" '(treemacs :wk "treemacs")
 
+ "n" '(:ignore t :wk "notes")
+ "nf" '(org-roam-node-find :wk "find note")
+ "ni" '(org-roam-node-insert :wk "insert note")
+ "nd" '(deft :wk "deft")
+ 
  "X" '(org-capture :wk "org capture")
  "U" '(straight-pull-all :wk "update all packages"))
 
