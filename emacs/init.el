@@ -9,9 +9,9 @@
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
+	(url-retrieve-synchronously
+	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -84,17 +84,6 @@
 
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-  (defun ws/verify-refile-target ()
-    "Eclude todo keywords with a done state"
-    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
-  (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
-   '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
-
   (use-package org-bullets
     :straight t)
 
@@ -165,40 +154,11 @@
 	'(("outlook" . "http://localhost:1080/users/45995wsp@eur.nl/calendar/")
 	  ))
 
-  (defun getcal (url file)
-    "Download ics file and add it to file"
-    (let ((tmpfile (url-file-local-copy url)))
-      (icalendar-import-file tmpfile file)
-      (kill-buffer (car (last (split-string tmpfile "/"))))))
-
-  (defun getcals ()
-    "Load a set of ICS calendars into Emacs diary files"
-    (interactive)
-    (mapcar #'(lambda (x)
-		(let ((file (concat diary-location (car x)))
-		      (url (cdr x)))
-		  (message (concat "Loading " url " into " file))
-		  (find-file file)
-		  ;; (flush-lines "^[& ]") ;; if you import ical as non marking
-		  (erase-buffer) ;; to avoid duplicating events
-		  (getcal url file)
-		  ))
-	    calendars))
-
   (setq org-agenda-include-diary t)
   (setq diary-file "~/.local/share/diary/outlook")
 
   ;; Kill capture frame
   (defvar kk/delete-frame-after-capture 0 "Whether to delete the last frame after the current capture")
-
-  (defun kk/delete-frame-if-neccessary (&rest r)
-    (cond
-     ((= kk/delete-frame-after-capture 0) nil)
-     ((> kk/delete-frame-after-capture 1)
-      (setq kk/delete-frame-after-capture (- kk/delete-frame-after-capture 1)))
-     (t
-      (setq kk/delete-frame-after-capture 0)
-      (delete-frame))))
 
   (advice-add 'org-capture-finalize :after 'kk/delete-frame-if-neccessary)
   (advice-add 'org-capture-kill :after 'kk/delete-frame-if-neccessary)
@@ -207,10 +167,6 @@
   (setq org-refile-use-outline-path t)
 
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
-
-  (defun ws/verify-refile-target ()
-    "Eclude todo keywords with a done state"
-    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
   ;; Set up org-ref stuff
   (use-package org-ref
@@ -224,16 +180,6 @@
     (org-ref-insert-ref-function 'org-ref-insert-ref-link)
     (org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
 
-   (defun my/org-ref-open-pdf-at-point ()
-    "Open the pdf for bibtex key under point if it exists."
-    (interactive)
-    (let* ((results (org-ref-get-bibtex-key-and-file))
-	   (key (car results))
-	   (pdf-file (funcall org-ref-get-pdf-filename-function key)))
-      (if (file-exists-p pdf-file)
-	  (find-file pdf-file)
-	(message "No PDF found for %s" key))))
-
   (setq org-ref-completion-library 'org-ref-ivy-cite
 	org-export-latex-format-toc-function 'org-export-latex-no-toc
 	org-ref-get-pdf-filename-function
@@ -245,60 +191,55 @@
 
   ;; Set up org-mode export stuff
   (setq org-latex-to-mathml-convert-command
-        "java -jar %j -unicode -force -df %o %I"
-        org-latex-to-mathml-jar-file
-        "/home/wouter/Tools/math2web/mathtoweb.jar")
+	"java -jar %j -unicode -force -df %o %I"
+	org-latex-to-mathml-jar-file
+	"/home/wouter/Tools/math2web/mathtoweb.jar")
 
   (add-to-list 'org-latex-classes
-               '("apa6"
-                 "\\documentclass{apa6}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+	       '("apa6"
+		 "\\documentclass{apa6}"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
   (add-to-list 'org-latex-classes
-               '("report"
-                 "\\documentclass{report}"
-                 ("\\chapter{%s}" . "\\chapter*{%s}")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+	       '("report"
+		 "\\documentclass{report}"
+		 ("\\chapter{%s}" . "\\chapter*{%s}")
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
   (add-to-list 'org-latex-classes
-               '("koma-article"
-                 "\\documentclass{scrartcl}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+	       '("koma-article"
+		 "\\documentclass{scrartcl}"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
   (add-to-list 'org-latex-classes
-               '("memoir"
-                 "\\documentclass{memoir}"
-                 ("\\book{%s}" . "\\book*{%s}")
-                 ("\\part{%s}" . "\\part*{%s}")
-                 ("\\chapter{%s} .\\chapter*{%s}")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+	       '("memoir"
+		 "\\documentclass{memoir}"
+		 ("\\book{%s}" . "\\book*{%s}")
+		 ("\\part{%s}" . "\\part*{%s}")
+		 ("\\chapter{%s} .\\chapter*{%s}")
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
   (add-to-list 'org-latex-classes
-               '("paper"
-                 "\\documentclass{paper}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-  (defun org-export-latex-no-toc (depth)
-    (when depth
-      (format "%% Org-mode is exporting headings to %s levels.\n"
-              depth)))
+	       '("paper"
+		 "\\documentclass{paper}"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
   ;; org-noter stuff
   (use-package org-noter
@@ -323,7 +264,7 @@
 		 (window-width . 0.33)
 		 (window-height . fit-window-to-buffer)))
   (org-roam-db-autosync-mode)
-  ;(add-hook 'after-init-hook 'org-roam-mode)
+  ;; (add-hook 'after-init-hook 'org-roam-mode)
   
   ;; org-roam-bibtex stuff
   (use-package org-roam-bibtex
@@ -359,14 +300,6 @@
 		      "#+title: %<%Y-%m-%d>\n"))))
 
   ;; Function to capture quotes from pdf
-  (defun org-roam-capture-pdf-active-region ()
-    (let* ((pdf-buf-name (plist-get org-capture-plist :original-buffer))
-	   (pdf-buf (get-buffer pdf-buf-name)))
-      (if (buffer-live-p pdf-buf)
-	  (with-current-buffer pdf-buf
-	    (car (pdf-view-active-region-text)))
-	(user-error "Buffer %S not alive" pdf-buf-name))))
-
   ;; For org-roam-ui
   (use-package websocket
     :straight t)
@@ -375,18 +308,7 @@
     :config
     (setq org-roam-ui-sync-theme t
 	  org-roam-ui-follow t
-	  org-roam-ui-update-on-save t))
-
-  ;; Workaround for org-roam minibuffer issues
-  (defun my/org-roam-node-read--to-candidate (node template)
-    "Return a minibuffer completion candidate given NODE.
-  TEMPLATE is the processed template used to format the entry."
-    (let ((candidate-main (org-roam-node--format-entry
-			   template
-			   node
-			   (1- (frame-width)))))
-      (cons (propertize candidate-main 'node node) node)))
-  (advice-add 'org-roam-node-read--to-candidate :override #'my/org-roam-node-read--to-candidate))
+	  org-roam-ui-update-on-save t)))
 
 ;;;;;;;;;;;
 ;; Email ;;
@@ -465,7 +387,6 @@
   :config
   (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
 
-
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
 ;;;;;;;;;;;;;;
@@ -474,7 +395,6 @@
   :straight t
   :after flyspell
   :bind (:map flyspell-mode-map ("C-;" . flyspell-correct-wrapper)))
-
 
 (use-package langtool
   :straight t
@@ -511,6 +431,12 @@
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
+
+(use-package wc-mode
+  :straight t
+  :config
+  (add-to-list 'global-mode-string '("" wc-buffer-stats)))
+
 (use-package general
   :straight t
   :config
@@ -546,7 +472,7 @@
   :config
   (add-hook 'ibuffer-mode-hook
 	    #'(lambda ()
-	       (ibuffer-switch-to-saved-filter-groups "home")))
+		(ibuffer-switch-to-saved-filter-groups "home")))
   (setq ibuffer-saved-filter-groups
 	(quote (("home"
 		 ("dired" (mode . dired-mode))
@@ -586,10 +512,10 @@
   :straight t
   :config
   (setq deft-extensions '("org")
-        deft-directory "~/org/org-roam/"
-        deft-recursive t
-        deft-strip-summary-regexp ":PROPERTIES:\n\\(.+\n\\)+:END:\n"
-        deft-use-filename-as-title t))
+	deft-directory "~/org/org-roam/"
+	deft-recursive t
+	deft-strip-summary-regexp ":PROPERTIES:\n\\(.+\n\\)+:END:\n"
+	deft-use-filename-as-title t))
 
 ;; Treemacs
 (use-package treemacs
@@ -613,7 +539,7 @@
   :straight t
   :hook ((c-mode . lsp)
 	 (c++-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
+	 (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :config
   (setq lsp-file-watch-threshold 15000))
@@ -693,18 +619,95 @@
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
+;;;;;;;;;;;;;;;;;;;
+;; New functions ;;
+;;;;;;;;;;;;;;;;;;;
+(defun ws/verify-refile-target ()
+  "Eclude todo keywords with a done state"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("735561d82728e28f275802fc875c3a2caf14d06f434604a7516c59d49120b163" default))
- '(package-selected-packages '(ivy dracula-theme use-package)))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+ '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
+
+(defun getcal (url file)
+  "Download ics file and add it to file"
+  (let ((tmpfile (url-file-local-copy url)))
+    (icalendar-import-file tmpfile file)
+    (kill-buffer (car (last (split-string tmpfile "/"))))))
+
+(defun getcals ()
+  "Load a set of ICS calendars into Emacs diary files"
+  (interactive)
+  (mapcar #'(lambda (x)
+	      (let ((file (concat diary-location (car x)))
+		    (url (cdr x)))
+		(message (concat "Loading " url " into " file))
+		(find-file file)
+		;; (flush-lines "^[& ]") ;; if you import ical as non marking
+		(erase-buffer) ;; to avoid duplicating events
+		(getcal url file)
+		))
+	  calendars))
+
+
+(defun delete-visited-file (buffer-name)
+  "Delete the file visited by the buffer named BUFFER-NAME."
+  (interactive "bDelete file visited by buffer ")
+  (let* ((buffer (get-buffer buffer-name))
+	 (filename (buffer-file-name buffer)))
+    (when buffer
+      (when (and filename
+		 (file-exists-p filename))
+	(delete-file filename))
+      (kill-buffer buffer))))
+
+(defun kk/delete-frame-if-neccessary (&rest r)
+  (cond
+   ((= kk/delete-frame-after-capture 0) nil)
+   ((> kk/delete-frame-after-capture 1)
+    (setq kk/delete-frame-after-capture (- kk/delete-frame-after-capture 1)))
+   (t
+    (setq kk/delete-frame-after-capture 0)
+    (delete-frame))))
+
+(defun ws/verify-refile-target ()
+  "Eclude todo keywords with a done state"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(defun my/org-ref-open-pdf-at-point ()
+  "Open the pdf for bibtex key under point if it exists."
+  (interactive)
+  (let* ((results (org-ref-get-bibtex-key-and-file))
+	 (key (car results))
+	 (pdf-file (funcall org-ref-get-pdf-filename-function key)))
+    (if (file-exists-p pdf-file)
+	(find-file pdf-file)
+      (message "No PDF found for %s" key))))
+
+(defun org-export-latex-no-toc (depth)
+  (when depth
+    (format "%% Org-mode is exporting headings to %s levels.\n"
+	    depth)))
+
+(defun org-roam-capture-pdf-active-region ()
+  (let* ((pdf-buf-name (plist-get org-capture-plist :original-buffer))
+	 (pdf-buf (get-buffer pdf-buf-name)))
+    (if (buffer-live-p pdf-buf)
+	(with-current-buffer pdf-buf
+	  (car (pdf-view-active-region-text)))
+      (user-error "Buffer %S not alive" pdf-buf-name))))
+
+;; Workaround for org-roam minibuffer issues
+(defun my/org-roam-node-read--to-candidate (node template)
+  "Return a minibuffer completion candidate given NODE.
+  TEMPLATE is the processed template used to format the entry."
+  (let ((candidate-main (org-roam-node--format-entry
+			 template
+			 node
+			 (1- (frame-width)))))
+    (cons (propertize candidate-main 'node node) node)))
+(advice-add 'org-roam-node-read--to-candidate :override #'my/org-roam-node-read--to-candidate)
