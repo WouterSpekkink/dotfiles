@@ -51,6 +51,7 @@
   ;; no vim insert bindings
   (setq evil-undo-system 'undo-fu)
   :config
+  (setq evil-want-C-u-scroll t)
   (evil-mode 1))
 
 ;; Vim Bindings Everywhere else
@@ -67,7 +68,6 @@
 (use-package org
   :straight t (:type built-in)
   :config
-  (setq org-agenda-files (quote("~/org/")))
   (setq org-directory "~/org/")
   (setq org-default-notes-file "~/org/refile.org")
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
@@ -81,12 +81,7 @@
 				)))
   
   (setq org-refile-use-outline-path t)
-
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
-
-  (use-package org-bullets
-    :straight t)
-
   (dolist (hook '(org-mode-hook))
     (add-hook hook (lambda () (flyspell-mode 1)))
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -168,33 +163,14 @@
 
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-  ;; Set up org-ref stuff
-  (use-package org-ref
-    :straight t
-    :custom
-    (org-ref-default-bibliography "/home/wouter/Tools/Zotero/bibtex/library.bib")
-    (org-ref-default-citation-link "citep")
-    (org-ref-insert-link-function 'org-ref-insert-link-hydra/body)
-    (org-ref-insert-cite-function 'org-ref-cite-insert-helm)
-    (org-ref-insert-label-function 'org-ref-insert-label-link)
-    (org-ref-insert-ref-function 'org-ref-insert-ref-link)
-    (org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
-
-  (setq org-ref-completion-library 'org-ref-ivy-cite
-	org-export-latex-format-toc-function 'org-export-latex-no-toc
-	org-ref-get-pdf-filename-function
-	(lambda (key) (car (bibtex-completion-find-pdf key)))
-	org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point
-	;; For pdf export engines
-	org-latex-pdf-process (list "latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -bibtex -f -output-directory=%o %f")
-	org-ref-notes-function 'orb-edit-notes)
-
   ;; Set up org-mode export stuff
   (setq org-latex-to-mathml-convert-command
 	"java -jar %j -unicode -force -df %o %I"
 	org-latex-to-mathml-jar-file
-	"/home/wouter/Tools/math2web/mathtoweb.jar")
+	"/home/wouter/Tools/math2web/mathtoweb.jar"))
 
+;; Add latex classes; needs to be done after loading ox-latex
+(with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
 	       '("apa6"
 		 "\\documentclass{apa6}"
@@ -239,22 +215,48 @@
 		 ("\\subsection{%s}" . "\\subsection*{%s}")
 		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-  ;; org-noter stuff
-  (use-package org-noter
-    :straight t
-    :config
-    (setq
-     org-noter-notes-search-path "~/org/org-roam/references/"
-     org-noter-hide-other nil
-     org-noter-separate-notes-from-heading t
-     org-noter-always-create-frame t)
-    )
-  )
+;; org-bullets
+(use-package org-bullets
+  :straight t
+  :after org)
+
+;; Set up org-ref stuff
+(use-package org-ref
+  :straight t
+  :after org
+  :custom
+  (org-ref-default-bibliography "/home/wouter/Tools/Zotero/bibtex/library.bib")
+  (org-ref-default-citation-link "citep")
+  (org-ref-insert-link-function 'org-ref-insert-link-hydra/body)
+  (org-ref-insert-cite-function 'org-ref-cite-insert-helm)
+  (org-ref-insert-label-function 'org-ref-insert-label-link)
+  (org-ref-insert-ref-function 'org-ref-insert-ref-link)
+  (org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
+
+  (setq org-ref-completion-library 'org-ref-ivy-cite
+	org-export-latex-format-toc-function 'org-export-latex-no-toc
+	org-ref-get-pdf-filename-function
+	(lambda (key) (car (bibtex-completion-find-pdf key)))
+	org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point
+	;; For pdf export engines
+	org-latex-pdf-process (list "latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -bibtex -f -output-directory=%o %f")
+	org-ref-notes-function 'orb-edit-notes))
+
+;; org-noter stuff
+(use-package org-noter
+  :straight t
+  :config
+  (setq
+   org-noter-notes-search-path "~/org/org-roam/references/"
+   org-noter-hide-other nil
+   org-noter-separate-notes-from-heading t
+   org-noter-always-create-frame t))
 
 (use-package org-roam
   :straight t
+  :after org
   :config
   (setq org-roam-directory "~/org/org-roam/")
   (add-to-list 'display-buffer-alist
@@ -265,17 +267,6 @@
 		 (window-height . fit-window-to-buffer)))
   (org-roam-db-autosync-mode)
   ;; (add-hook 'after-init-hook 'org-roam-mode)
-  
-  ;; org-roam-bibtex stuff
-  (use-package org-roam-bibtex
-    :straight t
-    :config
-    (org-roam-bibtex-mode))
-
-  (setq orb-preformat-keywords
-	'("citekey" "title" "url" "author-or-editor" "keywords" "file")
-	orb-process-file-keyword t
-	orb-file-field-extensions '("pdf"))
 
   ;; Let's set up some org-roam capture templates
   (setq org-roam-capture-templates
@@ -297,18 +288,30 @@
 	   "* %?"
 	   :target
 	   (file+head "%<%Y-%m-%d>.org"
-		      "#+title: %<%Y-%m-%d>\n"))))
+		      "#+title: %<%Y-%m-%d>\n")))))
 
-  ;; Function to capture quotes from pdf
-  ;; For org-roam-ui
-  (use-package websocket
-    :straight t)
-  (use-package org-roam-ui
-    :straight t
-    :config
-    (setq org-roam-ui-sync-theme t
-	  org-roam-ui-follow t
-	  org-roam-ui-update-on-save t)))
+;; For org-roam-ui
+(use-package websocket
+  :straight t
+  :after org-roam)
+(use-package org-roam-ui
+  :straight t
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+	org-roam-ui-follow t
+	org-roam-ui-update-on-save t))
+
+;; org-roam-bibtex stuff
+(use-package org-roam-bibtex
+  :straight t
+  :after org-roam
+  :config
+  (org-roam-bibtex-mode)
+  (setq orb-preformat-keywords
+	'("citekey" "title" "url" "author-or-editor" "keywords" "file")
+	orb-process-file-keyword t
+	orb-file-field-extensions '("pdf")))
 
 ;;;;;;;;;;;
 ;; Email ;;
@@ -343,23 +346,6 @@
 	org-mu4e-convert-to-html t)
   (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
   (add-hook 'mu4e-compose-mode-hook (lambda() (use-hard-newlines -1)))
-
-  ;; org-msg
-  (use-package org-msg
-    :straight t
-    :config
-    (setq mail-user-agent 'mu4e-user-agent)
-    (setq org-msg-default-alternatives nil)
-    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
-	  org-msg-startup "hidestars indent inlineimages"
-	  org-msg-recipient-names '(("spekkink@essb.eur.nl" . "Wouter"))
-	  org-msg-greeting-name-limit 3
-	  org-msg-default-alternatives '((new		. (text html))
-					 (reply-to-html	. (text html))
-					 (reply-to-text	. (text)))
-	  org-msg-convert-citation t)
-    (org-msg-mode))
-
   ;; Setup email account
   (setq mu4e-contexts
 	`(
@@ -381,9 +367,28 @@
 		    (user-mail-address                .       "spekkink@essb.eur.nl")
 		    (mu4e-update-interval             .       300))
 	    ))))
+
+;; org-msg
+(use-package org-msg
+  :straight t
+  :after mu4e
+  :config
+  (setq mail-user-agent 'mu4e-user-agent)
+  (setq org-msg-default-alternatives nil)
+  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+	org-msg-startup "hidestars indent inlineimages"
+	org-msg-recipient-names '(("spekkink@essb.eur.nl" . "Wouter"))
+	org-msg-greeting-name-limit 3
+	org-msg-default-alternatives '((new		. (text html))
+				       (reply-to-html	. (text html))
+				       (reply-to-text	. (text)))
+	org-msg-convert-citation t)
+  (org-msg-mode))
+
 ;; Email alert
 (use-package mu4e-alert
   :straight t
+  :after mu4e
   :config
   (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
 
