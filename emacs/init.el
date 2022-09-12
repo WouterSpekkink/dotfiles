@@ -1,4 +1,4 @@
-;;;;;;;;;;;;;;
+;;;;;;;;;;;;;; )
 ;; STARTUP  ;;
 ;;;;;;;;;;;;;;
 
@@ -69,28 +69,28 @@
   :straight t (:type built-in)
   :config
   (setq org-directory "~/org/")
+ (dolist (hook '(org-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1)))
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    (add-hook 'org-mode-hook (lambda () (org-indent-mode 1)))
+    (add-hook 'org-mode-hook (lambda () (+org-enable-auto-reformat-tables-h)))
+    (add-hook 'org-mode-hook (lambda () (writegood-mode 1))))
+  (setq org-ellipsis " ▼ ")
+  (setq org-hide-emphasis-markers t)
+  (setq org-log-done 'time)
   (setq org-default-notes-file "~/org/refile.org")
-  (setq org-refile-targets (quote ((nil :maxlevel . 9)
-				   (org-agenda-files :maxlevel . 9)
-				   ("~/org/org-roam/" :maxlevel . 9))))
+  (setq org-refile-targets (quote ((nil :maxlevel . 5)
+				   (org-agenda-files :maxlevel . 5))))
   (setq org-agenda-files (quote("~/org/"
 				"~/org/synced/"
 				"~/org/org-roam/"
 				"~/org/org-roam/daily/"
 				"~/org/org-roam/references/"
 				)))
+  (setq  org-outline-path-complete-in-steps nil)
   
   (setq org-refile-use-outline-path t)
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
-  (dolist (hook '(org-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (org-indent-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (writegood-mode 1))))
-  (setq org-ellipsis " ▼ ")
-  (setq org-hide-emphasis-markers t)
-  (setq org-log-done 'time)
-
   ;; org keyword related stuff
   (setq org-todo-keywords
 	(quote ((sequence
@@ -158,10 +158,6 @@
   (advice-add 'org-capture-finalize :after 'kk/delete-frame-if-neccessary)
   (advice-add 'org-capture-kill :after 'kk/delete-frame-if-neccessary)
   (advice-add 'org-capture-refile :after 'kk/delete-frame-if-neccessary)
-
-  (setq org-refile-use-outline-path t)
-
-  (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
   ;; Set up org-mode export stuff
   (setq org-latex-to-mathml-convert-command
@@ -313,6 +309,14 @@
 	orb-process-file-keyword t
 	orb-file-field-extensions '("pdf")))
 
+(use-package evil-org
+  :straight t
+  :after org
+  :hook (orgmode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
 ;;;;;;;;;;;
 ;; Email ;;
 ;;;;;;;;;;;
@@ -398,8 +402,7 @@
 
 (use-package flyspell-correct-ivy
   :straight t
-  :after flyspell
-  :bind (:map flyspell-mode-map ("C-;" . flyspell-correct-wrapper)))
+  :after flyspell)
 
 (use-package langtool
   :straight t
@@ -483,16 +486,17 @@
 		 ("dired" (mode . dired-mode))
 		 ("emacs-config" (or (filename . "init.el")
 				     (filename . "keybinds.el")))
-		 ("Org" (or (mode . org-mode)
-			    (filename . "OrgMode")))
-		 ("emacs" (or
+		 ("Email" (name . "^\\*mu4e-main\\*$"))
+	 ("emacs" (or
 			   (name . "^\\*scratch\\*$")
 			   (name . "^\\*Messages\\*$")
 			   (name . "^\\*straight-process\\*$")
 			   (name . "^\\*GNU Emacs*\\*$")))
 		 ("Help" (or (name . "\*Help\*")
 			     (name . "\*Apropos\*")
-			     (name . "\*info\*"))))))))		      
+			     (name . "\*info\*")))
+		 ("Org" (or (mode . org-mode)
+			    (filename . "OrgMode"))))))))
 
 ;; helm-bibtex
 (use-package helm-bibtex
@@ -626,10 +630,10 @@
 ;;;;;;;;;;;
 
 ;; Set theme
-(use-package dracula-theme
+(use-package material-theme
   :straight t
   :config
-  (load-theme 'dracula t))
+  (load-theme 'material t))
 
 ;; Set font
 (add-to-list 'default-frame-alist '(font . "DejaVuSansMono NF Book 13"))
@@ -656,10 +660,14 @@
 ;; New functions ;;
 ;;;;;;;;;;;;;;;;;;;
 (defun ws/verify-refile-target ()
-  "Eclude todo keywords with a done state"
+  "Exclude todo keywords with a done state"
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
@@ -744,3 +752,26 @@
 			 (1- (frame-width)))))
     (cons (propertize candidate-main 'node node) node)))
 (advice-add 'org-roam-node-read--to-candidate :override #'my/org-roam-node-read--to-candidate)
+
+;; I shamelessly copy-pasted these from doom emacs, because they are super useful.
+(defun +org-realign-table-maybe-h ()
+  "Auto-align table under cursor."
+  (when (and org-table-automatic-realign (org-at-table-p) org-table-may-need-update)
+    (let ((pt (point))
+          (inhibit-message t))
+      (if org-table-may-need-update (org-table-align))
+      (goto-char pt))))
+
+(defun +org-enable-auto-reformat-tables-h ()
+  "Realign tables & update formulas when exiting insert mode (`evil-mode').
+Meant for `org-mode-hook'."
+  (when (featurep 'evil)
+    (add-hook 'evil-insert-state-exit-hook #'+org-realign-table-maybe-h nil t)
+    (add-hook 'evil-replace-state-exit-hook #'+org-realign-table-maybe-h nil t)
+    (advice-add #'evil-replace :after #'+org-realign-table-maybe-a)))
+
+(defun +org-realign-table-maybe-a (&rest _)
+  "Auto-align table under cursor and re-calculate formulas."
+  (when (eq major-mode 'org-mode)
+    (+org-realign-table-maybe-h)))
+
