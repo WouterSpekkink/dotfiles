@@ -1,5 +1,5 @@
 (general-define-key
- :states '(normal visual insert emacs)
+ :states '(normal visual insert replace emacs)
  :keymaps 'override
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
@@ -44,7 +44,7 @@
  )
 
 (general-define-key
- :states '(normal visual emacs)
+ :states '(normal visual replace emacs)
  :keymaps '(lsp-mode-map c-mode-map)
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
@@ -112,7 +112,7 @@
 
 (general-define-key
  :prefix "SPC"
- :states '(normal visual)
+ :states '(normal visual insert replace emacs)
  :non-normal-prefix "M-SPC"
  :keymaps 'org-mode-map
  "e" '(org-export-dispatch :wk "export")
