@@ -1,5 +1,6 @@
 (general-define-key
- :states '(normal visual)
+ :states '(normal visual insert emacs)
+ :keymaps 'override
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  "f" '(:ignore t :wk "file")
@@ -14,39 +15,108 @@
  "w" '(:ignore t :wk "windows")
  "ww" '(evil-window-next :wk "next window")
  "wp" '(evil-window-prev :wk "previous window")
+ "w|" '(evil-window-set-width :wk "set window width")
+ "wq" '(evil-window-delete :wk "delete window")
 
  "o" '(:ignore t :wk "open")
  "om" '(mu4e :wk "email")
  "ol" '(helm-bibtex :wk "literature")
  "oa" '(org-agenda :wk "agenda")
- "ot" '(treemacs :wk "treemacs")
 
  "n" '(:ignore t :wk "notes")
  "nf" '(org-roam-node-find :wk "find note")
  "ni" '(org-roam-node-insert :wk "insert note")
  "nd" '(deft :wk "deft")
+ "np" '(org-noter :w "noter")
  
  "X" '(org-capture :wk "org capture")
- "U" '(straight-pull-all :wk "update all packages"))
+ "U" '(straight-pull-all :wk "update all packages")
+ "u" '(universal-argument :wk "universal argument")
 
-;  (setq lsp-keymap-prefix "C-c l")
- ; (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-;   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
- ; (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+ "i" '(:ignore t :wk "insert")
+ "ic" '(insert-char :wk "character")
+
+ "t" '(:ignore t :wk "treemacs")
+ "to" '(treemacs :wk "open browser")
+ "tw" '(:ignore t :wk "workspaces")
+ "tws" '(treemacs-switch-workspace :wk "switch workspace")
+ "tes" '(treemacs-edit-workspaces :wk "edit workspaces")
+ )
 
 (general-define-key
+ :states '(normal visual emacs)
+ :keymaps '(lsp-mode-map c-mode-map)
  :prefix "SPC"
- :states '(normal visual)
  :non-normal-prefix "M-SPC"
- :keymaps '(c++-mode-map c-mode-map)
- "d" '(disaster :wk "disaster"))
+ "l" '(:ignore t :wk "lsp")
+
+ "lw" '(:ignore t :wk "workspaces")
+ "lwD" '(lsp-disconnect :wk "disconnect")
+ "lwd" '(lsp-describe-session :wk "describe session")
+ "lwq" '(lsp-workspace-shutdown :wk "shutdown server")
+ "lwr" '(lsp-workspace-restart :wk "restart server")
+ "lws" '(lsp :wk "start server")
+
+ "l=" '(:ignore t :wk "format")
+ "l==" '(lsp-format-buffer :wk"format buffer")
+ "l=r" '(lsp-format-region :wk "format region")
+
+ "lF" '(:ignore t :wk "folders")
+ "lFa" '(lsp-workspace-folders-add :wk "add folder")
+ "lFb" '(lsp-workspace-blacklist-remove :wk "un-blacklist folder")
+ "lFr" '(lsp-workspace-folders-remove :wk "remove folder")
+
+ "lT" '(:ignore t :wk "toggles")
+ "lTD" '(lsp-modeline-diagnostics-mode :wk "toggle modeline diagnostics") 
+ "lTL" '(lsp-toggle-trace-io :wk "toggle log io")
+ "lTS" '(lsp-ui-sideline-mode :wk "toggle sideline")
+ "lTT" '(lsp-treemacs-sync-mode :wk "toggle treemacs integration") 
+ "lTa" '(lsp-modeline-code-actions-mode :wk "toggle modeline code actions") 
+ "lTb" '(lsp-headerline-breadcrumb-mode :wk "toggle breadcrumb") 
+ "lTd" '(lsp-ui-doc-mode :wk "toggle documentation popup") 
+ "lTf" '(lsp-toggle-on-type-formatting :wk "toggle on type formatting") 
+ "lTh" '(lsp-toggle-symbol-highlight :wk "toggle highlighting") 
+ "lTl" '(lsp-lens-mode :wk "toggle lenses") 
+ "lTs" '(lsp-toggle-signature-auto-activate :wk "toggle signature") 
+ 
+ "lg" '(:ignore t :wk "goto")
+ "lga" '(xref-find-apropos :wk "find symbol in workspace")
+ "lgd" '(lsp-find-declaration :wk "find declarations")
+ "lge" '(lsp-treemacs-errors-list :wk "show errors")
+ "lgg" '(lsp-find-definition :wk "find definitions")
+ "lgh" '(lsp-treemacs-call-hierarchy :wk "call hierarchy")
+ "lgi" '(lsp-find-implementation :wk "find implementations")
+ "lgr" '(lsp-find-references :wk "find references")
+ "lgt" '(lsp-find-type-definition :wk "find type definition")
+
+ "lh" '(:ignore t :wk "help")
+ "lhg" '(lsp-ui-doc-glance :wk "glance symbol") 
+ "lhh" '(lsp-describe-thing-at-point :wk "describe symbol at point") 
+ "lhs" '(lsp-signature-activate :wk "signature help") 
+
+ "lr" '(:ignore t :wk "refactoring")
+ "lro" '(lsp-organize-imports :wk "organize imports")
+ "lrr" '(lsp-rename :wk "rename")
+
+ "la" '(:ignore t :wk "actions")
+ "laa" '(lsp-execute-code-action :wk "code actions") 
+ "lah" '(lsp-document-highlight :wk "highlight symbol")
+ "lal" '(lsp-avy-lens :wk "lens")
+
+ ;; peeks
+ "lG" '(:ignore t :wk "peeks")
+ "lGg" '(lsp-ui-peek-find-definitions :wk "peek definitions")
+ "lGi" '(lsp-ui-peek-find-implementation :wk "peek implementations")
+ "lGr" '(lsp-ui-peek-find-references :wk "peek references")
+ "lGs" '(lsp-ui-peek-find-workspace-symbol :wk "peek workspace symbol"))
 
 (general-define-key
  :prefix "SPC"
  :states '(normal visual)
  :non-normal-prefix "M-SPC"
  :keymaps 'org-mode-map
- "e" '(org-export-dispatch :wk "export"))
+ "e" '(org-export-dispatch :wk "export")
+ "ir" '(org-ref-insert-cite-link :wk "citation"))
 
 (eval-after-load "org-mode"
   (general-define-key

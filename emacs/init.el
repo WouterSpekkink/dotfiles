@@ -526,6 +526,10 @@
 (use-package treemacs
   :straight t)
 
+(use-package treemacs-evil
+  :straight t
+  :after (treemacs evil))
+
 ;;;;;;;;;;;;
 ;; Python ;;
 ;;;;;;;;;;;;
@@ -535,19 +539,38 @@
   :config
   (add-hook 'python-mode-hook 'anaconda-mode))
 
+(use-package pyvenv
+  :straight t
+  :init
+  (setenv "WORKON_HOME" "~/.config/pyenv/versions"))
+
+;;;;;;;;;;
+;; Rust ;;
+;;;;;;;;;;
+
+(use-package rustic
+  :straight t)
+
 ;;;;;;;;;;;;;;;
-;; c and c++ ;;
+;; lsp stuff ;;
 ;;;;;;;;;;;;;;;
 
 ;; lsp
 (use-package lsp-mode
   :straight t
-  :hook ((c-mode . lsp)
-	 (c++-mode . lsp)
-	 (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :config
-  (setq lsp-file-watch-threshold 15000))
+  (setq gc-cons-threshold (* 100 1024 1024)
+	read-process-output-max (* 1024 1024)
+	treemacs-space-between-root-nodes nil
+	company-idle-delay 0.0
+	company-minimum-prefix-length 1
+	lsp-idle-delay 0.1)
+  (setq lsp-lens-enable nil) ;This resolves extreme cpu use 
+  :hook ((c-mode . lsp)
+	 (c++-mode . lsp)
+	 (python-mode . lsp)
+	 (lsp-mode . evil-normalize-keymaps)))
 
 (use-package lsp-ui
   :straight t
@@ -564,7 +587,12 @@
   :straight t
   :commands lsp-treemacs-errors-list)
 
+(use-package yasnippet
+  :straight t
+  :hook ((lsp-mode . yas-minor-mode)))
+
 (use-package ccls
+  :after lsp-mode
   :straight t
   :config
   (setq ccls-executable "/usr/bin/ccls")

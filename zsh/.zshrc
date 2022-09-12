@@ -132,5 +132,8 @@ source $XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $XDG_CONFIG_HOME/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Pyenv
+eval "$(pyenv init -)"
+
 # Load starthip prompt (should be at the end)
 eval "$(starship init zsh)"
