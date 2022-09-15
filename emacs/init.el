@@ -74,10 +74,13 @@
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     (add-hook 'org-mode-hook (lambda () (org-indent-mode 1)))
     (add-hook 'org-mode-hook (lambda () (+org-enable-auto-reformat-tables-h)))
-    (add-hook 'org-mode-hook (lambda () (writegood-mode 1))))
+    (add-hook 'org-mode-hook (lambda () (writegood-mode 1)))
+    (add-hook 'org-mode-hook (lambda () (visual-line-mode)))
   (setq org-ellipsis " ▼ ")
   (setq org-hide-emphasis-markers t)
   (setq org-log-done 'time)
+  (setq org-agenda-window-setup "only window")
+
   (setq org-default-notes-file "~/org/refile.org")
   (setq org-refile-targets (quote ((nil :maxlevel . 5)
 				   (org-agenda-files :maxlevel . 5))))
@@ -361,7 +364,7 @@
 			     msg '(:from :to :cc :bcc) "spekkink@essb.eur.nl")))
 	    :vars '((mu4e-sent-folder                 .       "/essb/Sent")
 		    (mu4e-drafts-folder               .       "/essb/Drafts")
-		    (mu4e-trash-folder                .       "/essb/Trash")
+		    (mu4e-trash-folder                .       "/essb/Deleted Items")
 		    (mu4e-refile-folder               .       "/essb/INBOX")
 		    (message-send-mail-function       .       smtpmail-send-it)
 		    (smtpmail-smtp-user               .       "45995wsp@eur.nl")
@@ -458,11 +461,33 @@
 ;; Auto-follow symbolic links
 (setq vc-follow-symlinks t)
 
+;; Get rid of the annoying backup files
+(setq make-backup-files nil) 
+
 ;; Ivy
 (use-package ivy
   :straight t
   :config
-  (ivy-mode 1))
+  (ivy-mode))
+
+(use-package counsel
+  :straight t
+  :config
+  (counsel-mode 1))
+
+(use-package all-the-icons-ivy
+  :straight t
+  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
+
+(use-package ivy-rich
+  :straight t
+  :config
+  (ivy-rich-mode 1))
+
+(use-package amx
+  :straight t
+  :config
+  (amx-mode))
 
 ;; Line numbers
 (global-display-line-numbers-mode)
@@ -505,6 +530,8 @@
   (bibtex-completion-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
   (reftex-default-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
   (bibtex-completion-pdf-field "file")
+  :config
+  (setq bibtex-completion-display-formats '((t . "${author:36} ${title:100} ${year:4} ${=has-pdf=:1}${=has-note=:1} ${=type=:7}")))
   :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
 
 ;; This is to use pdf-tools instead of doc-viewer

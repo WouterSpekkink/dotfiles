@@ -48,7 +48,6 @@
  "tws" '(treemacs-switch-workspace :wk "switch workspace")
  "twe" '(treemacs-edit-workspaces :wk "edit workspaces"))
 
-
 (general-define-key
  :keymaps 'flyspell-mode-map
  :states 'normal
@@ -66,13 +65,14 @@
  "" '(nil :wk "leader")
  "m" '(:ignore t :wk "localleader")
  "mc" '(:ignore t :wk "clock")
- "mci" '(org-clock-in :wk "clock in")
- "mco" '(org-clock-out :wk "clock out")
+ "mci" '(org-agenda-clock-in :wk "clock in")
+ "mco" '(org-agenda-clock-out :wk "clock out")
  "md" '(:ignore t :wk "dates")
  "mds" '(org-agenda-schedule :wk "schedule")
  "mdd" '(org-agenda-deadline :wk "set deadline")
  "mt" '(:ignore t :wk "todo")
- "mtt" '(org-agenda-todo :wk "todo states"))
+ "mtt" '(org-agenda-todo :wk "todo states")
+ "mr" '(org-agenda-refile :wk "refile"))
 
 (eval-after-load "org-mode"
   (general-define-key
@@ -93,24 +93,37 @@
  :states '(normal visual insert replace emacs)
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "m" '(:ignore t :wk "org")
+ "m" '(:ignore t :wk "localleader")
  "me" '(org-export-dispatch :wk "export")
  "mi" '(:ignore t :wk "insert")
  "mir" '(org-ref-insert-cite-link :wk "citation")
  "mt" '(:ignore t :wk "todo")
  "mtt" '(org-todo :wk "todo states")
  "ms" '(:ignore t :wk "toggles")
- "mst" '(toggle-truncate-lines :wk "toggle truncate"))
+ "mst" '(visual-line-mode :wk "visual line mode")
+ "md" '(:ignore t :wk "dates")
+ "mds" '(org-schedule :wk "schedule")
+ "mdd" '(org-deadline :wk "set deadline")
+ "mc" '(:ignore t :wk "clock")
+ "mci" '(org-clock-in :wk "clock in")
+ "mco" '(org-clock-out :wk "clock out")
+ "mr" '(org-refile :wk "refile"))
 
 (eval-after-load "org-noter"
   (general-define-key
-   :keymaps '(org-noter-insert-note org-noter-doc-mode-map)
+   :keymaps '(org-noter-doc-mode-map org-noter-notes-mode-map)
    "C-M-i" 'org-noter-insert-note
    "C-M-p" 'org-noter-insert-precise-note
    "C-M-k" 'org-noter-sync-prev-note
    "C-M-j" 'org-noter-sync-next-note
    "C-M-s" 'org-noter-create-skeleton
    "C-M-q" 'org-noter-kill-session))
+
+(eval-after-load "ivy"
+  (general-define-key
+   :keymaps 'ivy-minibuffer-map
+   "C-j" 'ivy-next-line
+   "C-k" 'ivy-previous-line))
 
 (general-define-key
  :states '(normal visual replace emacs)
