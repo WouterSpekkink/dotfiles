@@ -15,6 +15,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+
 (setq package-enable-at-startup nil)
 
 ;; Use-package
@@ -75,7 +76,7 @@
     (add-hook 'org-mode-hook (lambda () (org-indent-mode 1)))
     (add-hook 'org-mode-hook (lambda () (+org-enable-auto-reformat-tables-h)))
     (add-hook 'org-mode-hook (lambda () (writegood-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (visual-line-mode)))
+    (add-hook 'org-mode-hook (lambda () (visual-line-mode))))
   (setq org-ellipsis " ▼ ")
   (setq org-hide-emphasis-markers t)
   (setq org-log-done 'time)
@@ -488,6 +489,18 @@
   :straight t
   :config
   (amx-mode))
+
+(use-package flx
+  :straight t
+  :config
+  (setq ivy-re-builders-alist
+	'((t . ivy--regex-plus)))
+  (setq ivy-initial-inputs-alist nil))
+
+(use-package ivy-prescient
+  :straight t
+  :config
+  (ivy-prescient-mode))
 
 ;; Line numbers
 (global-display-line-numbers-mode)
