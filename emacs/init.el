@@ -595,6 +595,15 @@
 (use-package rustic
   :straight t)
 
+;;;;;;;;;;;;;;;;;
+;; Common Lisp ;;
+;;;;;;;;;;;;;;;;;
+
+(use-package sly
+  :straight t
+  :config
+  (setq inferior-lisp-program (executable-find "sbcl")))
+
 ;;;;;;;;;;;;;;;
 ;; lsp stuff ;;
 ;;;;;;;;;;;;;;;
