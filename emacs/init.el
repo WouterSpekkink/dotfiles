@@ -574,6 +574,9 @@
   :straight t
   :after (treemacs evil))
 
+(use-package magit
+  :straight t)
+
 ;;;;;;;;;;;;
 ;; Python ;;
 ;;;;;;;;;;;;

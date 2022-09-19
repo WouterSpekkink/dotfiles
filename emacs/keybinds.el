@@ -1,5 +1,6 @@
 ;; Setup evil
 (general-evil-setup)
+(evil-collection-init)
 
 (general-define-key
  :states '(normal visual insert motion emacs)
