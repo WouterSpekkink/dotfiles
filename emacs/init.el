@@ -68,15 +68,14 @@
 ;;;;;;;;;;;;;;
 (use-package org
   :straight t (:type built-in)
+  :hook ((org-mode . flyspell-mode)
+	 (org-mode . org-bullets-mode)
+	 (org-mode . org-indent-mode)
+	 (org-mode . +org-enable-auto-reformat-tables-h)
+	 (org-mode . writegood-mode )
+	 (org-mode . visual-line-mode))
   :config
   (setq org-directory "~/org/")
- (dolist (hook '(org-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (org-indent-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (+org-enable-auto-reformat-tables-h)))
-    (add-hook 'org-mode-hook (lambda () (writegood-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (visual-line-mode))))
   (setq org-ellipsis " ▼ ")
   (setq org-hide-emphasis-markers t)
   (setq org-log-done 'time)
@@ -449,6 +448,9 @@
   :hook ((lisp-mode)
 	 (emacs-lisp-mode)
 	 (sly-mrepl-mode)))
+
+(use-package rainbow-mode
+  :straight t)
 
 (use-package wc-mode
   :straight t
