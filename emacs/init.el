@@ -723,10 +723,12 @@
 ;;;;;;;;;;;
 
 ;; Set theme
-(use-package monokai-theme
-  :straight t
-  :config
-  (load-theme 'monokai t))
+ (use-package monokai-theme
+   :straight t
+   :config
+   (setq monokai-background "#000000"
+	 monokai-green "#98C379")
+   (load-theme 'monokai t))
 
 ;; Set font
 (add-to-list 'default-frame-alist '(font . "DejaVuSansMono NF Book 13"))
