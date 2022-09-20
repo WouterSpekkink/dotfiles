@@ -444,6 +444,12 @@
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
 
+(use-package rainbow-delimiters
+  :straight t
+  :hook ((lisp-mode)
+	 (emacs-lisp-mode)
+	 (sly-mrepl-mode)))
+
 (use-package wc-mode
   :straight t
   :config
