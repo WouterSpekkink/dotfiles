@@ -726,7 +726,7 @@
  (use-package monokai-theme
    :straight t
    :config
-   (setq monokai-background "#000000"
+   (setq monokai-background "#151515"
 	 monokai-green "#98C379")
    (load-theme 'monokai t))
 
