@@ -52,11 +52,12 @@
 (general-define-key
  :keymaps 'flyspell-mode-map
  :states 'normal
- "C-;" 'flyspell-correct-wrapper)
+ "C-;" 'flyspell-correct-wrapper
+ "C-'" '+flyspell-add-word)
 
 (global-set-key (kbd "C-c N")
                 (lambda()(interactive)
-                  (ispell-change-dictionary "dutch")
+                  (ispell-change-dictionary "nl_NL")
                   (flyspell-buffer)))
 
 (general-define-key
@@ -291,3 +292,9 @@
   (interactive "p")
   (dotimes (_ count) (+org--insert-item 'above)))
 
+(defun +flyspell-save-word ()
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (when (consp word)    
+      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))

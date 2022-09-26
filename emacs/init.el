@@ -252,6 +252,7 @@
    org-noter-separate-notes-from-heading t
    org-noter-always-create-frame t))
 
+;; org-roam
 (use-package org-roam
   :straight t
   :after org
@@ -311,6 +312,7 @@
 	orb-process-file-keyword t
 	orb-file-field-extensions '("pdf")))
 
+;; evil-org
 (use-package evil-org
   :straight t
   :after org
@@ -319,6 +321,7 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+;; org-modern
 (use-package org-modern
   :straight t
   :after org
@@ -352,6 +355,12 @@
    org-agenda-current-time-string
    "⭠ now ─────────────────────────────────────────────────")
   (global-org-modern-mode))
+
+;; org-reveal
+(use-package ox-reveal
+  :straight t
+  :config
+  (setq org-reveal-root "/home/wouter/Tools/reveal.js"))
 
 ;;;;;;;;;;;
 ;; Email ;;
@@ -435,6 +444,9 @@
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
 ;;;;;;;;;;;;;;
+(with-eval-after-load "flyspell"
+  (setq ispell-program-name "hunspell")
+  (setq ispell-list-command "--list"))
 
 (use-package flyspell-correct-ivy
   :straight t
@@ -613,9 +625,26 @@
 
 (use-package treemacs-evil
   :straight t
-  :after (treemacs evil))
+  :after treemacs)
 
 (use-package magit
+  :straight t)
+
+;;;;;;;;;;;;;;;;
+;; Javascript ;;
+;;;;;;;;;;;;;;;;
+
+(use-package js2-mode
+  :straight t)
+
+(use-package skewer-mode
+  :straight t
+  :after js2-mode)
+
+(use-package npm-mode
+  :straight t)
+
+(use-package nodejs-repl
   :straight t)
 
 ;;;;;;;;;;;;
@@ -629,8 +658,11 @@
 
 (use-package pyvenv
   :straight t
-  :init
-  (setenv "WORKON_HOME" "~/.config/pyenv/versions"))
+  :config
+  (setenv "WORKON_HOME" "~/.config/pyenv/versions")
+  (pyvenv-workon "3.10.6") ;; Default venv
+  (pyvenv-tracking-mode 1))
+
 
 ;;;;;;;;;;
 ;; Rust ;;
@@ -667,6 +699,7 @@
   :hook ((c-mode . lsp)
 	 (c++-mode . lsp)
 	 (python-mode . lsp)
+	 (js2-mode . lsp)
 	 (lsp-mode . evil-normalize-keymaps)))
 
 (use-package lsp-ui
