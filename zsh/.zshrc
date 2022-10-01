@@ -86,6 +86,7 @@ alias frontier="cd $HOME/Games/frontier && dosbox frontier.exe -fullscreen"
 alias update="sudo pacman -Syu"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias la="ls -a"
+alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/yarnrc"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'
