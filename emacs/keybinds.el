@@ -35,6 +35,9 @@
  "nrf" '(org-roam-node-find :wk "find note")
  "nri" '(org-roam-node-insert :wk "insert note")
  "nrr" '(org-roam-buffer-toggle :wk "buffer")
+ "nrd" '(:ignore t :wk "dailies")
+ "nrdt" '(org-roam-dailies-capture-today :wk "today")
+ "nrdd" '(org-roam-dailies-capture-date :wk "pick date")
  
  "X" '(org-capture :wk "org capture")
  "U" '(straight-pull-all :wk "update all packages")
