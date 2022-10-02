@@ -4,21 +4,24 @@
 
 case $BLOCK_BUTTON in
 	1) setsid -f "$TERMINAL" -e pulsemixer ;;
+        2) pamixer -t ;;
         4) pamixer --allow-boost -i 1;;
         5) pamixer --allow-boost -d 1;;
-
+	3) notify-send "📢 Volume module" "\- Shows volume 🔊, 🔇 if muted."
 esac
 
-[ $(pamixer --get-mute) = true ] && echo  && exit
+[ $(pamixer --get-mute) = true ] && echo 🔇 && exit
 
 vol="$(pamixer --get-volume)"
 
 if [ "$vol" -gt "70" ]; then
-	icon=" "
-elif [ "$vol" -lt "30" ]; then
-	icon=" "
+    icon=" "
+elif [ "$vol" -gt "30" ]; then
+    icon=" "
+elif [ "$vol" -git "0"]; then
+    icon="🔈 "
 else
-	icon=" "
+    echo 🔇 && exit
 fi
 
-echo "$icon $vol%"
+echo "$icon$vol%"
