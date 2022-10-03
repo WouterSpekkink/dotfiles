@@ -40,6 +40,7 @@ execs:
 	$(LN) $(PWD)/scripts/sb-memory $(HOME)/.local/bin/sb-memory
 	$(LN) $(PWD)/scripts/sb-volume $(HOME)/.local/bin/sb-volume
 	$(LN) $(PWD)/scripts/sb-internet $(HOME)/.local/bin/sb-internet
+	$(LN) $(PWD)/scripts/sb-forecast $(HOME)/.local/bin/sb-forecast
 	$(LN) $(PWD)/scripts/org-capture $(HOME)/.local/bin/org-capture
 	$(LN) $(PWD)/scripts/screenshot $(HOME)/.local/bin/screenshot
 
