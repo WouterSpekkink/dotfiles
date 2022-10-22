@@ -24,6 +24,8 @@ init: ## deploy dotfiles
 	$(LN) $(PWD)/dwm/autostart.sh $(HOME)/.local/share/dwm/autostart.sh
 	$(LN) $(PWD)/emacs/init.el $(HOME)/.config/emacs/init.el
 	$(LN) $(PWD)/emacs/keybinds.el $(HOME)/.config/emacs/keybinds.el
+	$(LN) $(PWD)/newsboat/config $(HOME)/.config/newsboat/config
+	$(LN) $(PWD)/newsboat/urls $(HOME)/.local/share/newsboat/urls
 	$(SLN) $(PWD)/profile/profile /etc/profile
 
 execs: 
