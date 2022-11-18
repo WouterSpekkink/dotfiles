@@ -62,6 +62,14 @@
                 (lambda()(interactive)
                   (ispell-change-dictionary "nl_NL")
                   (flyspell-buffer)))
+(global-set-key (kbd "C-c E")
+		(lambda()(interactive)
+		  (ispell-change-dictionary "en_GB")
+		  (flyspell-buffer)))
+(global-set-key (kbd "C-c U")
+		(lambda()(interactive)
+		  (ispell-change-dictionary "en_US")
+		  (flyspell-buffer)))
 
 (general-define-key
  :keymaps 'org-agenda-mode-map
