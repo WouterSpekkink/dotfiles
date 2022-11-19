@@ -1,48 +1,55 @@
-https://www.cato.org/rss/blog
-https://greenwald.substack.com/feed/
-https://www.nationalreview.com/feed/
-https://wisdomofcrowds.live/rss/
-https://www.realclearinvestigations.com/articles/index.xml
-https://www.realclearinvestigations.com/index.xml
-https://feedx.net/rss/ap.xml
-https://www.theatlantic.com/feed/all/
-http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk
-https://www.democracynow.org/democracynow.rss
-https://www.theguardian.com/uk-news/rss
-https://www.theguardian.com/world/rss
-https://thehill.com/rss/syndicator/19109
-https://thehill.com/taxonomy/term/2003/feed
-https://theintercept.com/feed/?rss
-https://justthenews.com/rss.xml
-https://rss.nytimes.com/services/xml/rss/nyt/US.xml
-https://rss.nytimes.com/services/xml/rss/nyt/World.xml
-http://feeds.feedburner.com/realclearpolitics/qlMj
-https://fd.nl/?rss
-https://www.nrc.nl/rss/
-http://feeds.nos.nl/nosnieuwsalgemeen
-http://feeds.nos.nl/nosnieuwseconomie
-http://feeds.nos.nl/nosnieuwspolitiek
-https://www.nu.nl/rss/algemeen
-https://www.volkskrant.nl/voorpagina/rss.xml
-https://www.volkskrant.nl/nieuws-achtergrond/rss.xml
-https://www.volkskrant.nl/uitgelicht/rss.xml
-https://www.volkskrant.nl/economie/rss.xml
-https://www.volkskrant.nl/columns-opinie/rss.xml
-https://www.volkskrant.nl/wetenschap/rss.xml
-https://www.volkskrant.nl/eten-en-drinken/rss.xml
-https://www.economist.com/the-world-this-week/rss.xml
-https://www.economist.com/leaders/rss.xml
-https://www.economist.com/briefing/rss.xml
-https://www.economist.com/special-report/rss.xml
-https://www.economist.com/britain/rss.xml
-https://www.economist.com/europe/rss.xml
-https://www.economist.com/united-states/rss.xml
-https://www.economist.com/the-americas/rss.xml
-https://www.economist.com/middle-east-and-africa/rss.xml
-https://www.economist.com/asia/rss.xml
-https://www.economist.com/china/rss.xml
-https://www.economist.com/international/rss.xml
-https://www.economist.com/business/rss.xml
-https://www.economist.com/finance-and-economics/rss.xml
-https://www.economist.com/science-and-technology/rss.xml
-https://nyxt.atlas.engineer/feed
+https://onlinelibrary.wiley.com/feed/14680491/most-recent "Academic Journals"
+https://onlinelibrary.wiley.com/feed/14680491/most-cited "Academic Journals"
+https://academic.oup.com/rss/site_5479/3340.xml "Academic Journals"
+https://onlinelibrary.wiley.com/feed/14679299/most-recent "Academic Journals"
+https://onlinelibrary.wiley.com/feed/14679299/most-cited "Academic Journals"
+https://rss.sciencedirect.com/publication/science/09596526 "Academic Journals"
+https://rss.sciencedirect.com/publication/science/03014215 "Academic Journals"
+https://www.nature.com/nclimate.rss "Academic Journals"
+https://rss.sciencedirect.com/publication/science/00487333 "Academic Journals"
+https://rss.sciencedirect.com/publication/science/22104224 "Academic Journals"
+https://www.cato.org/rss/blog "Opinion"
+https://greenwald.substack.com/feed/ "Opinion"
+https://www.nationalreview.com/feed/ "Opinion"
+https://wisdomofcrowds.live/rss/ "Opinion"
+https://feedx.net/rss/ap.xml "News"
+https://www.theatlantic.com/feed/all/ "News"
+http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk "News"
+https://www.democracynow.org/democracynow.rss "News"
+https://www.theguardian.com/uk-news/rss "News"
+https://www.theguardian.com/world/rss "News"
+https://thehill.com/rss/syndicator/19109 "News"
+https://thehill.com/taxonomy/term/2003/feed "News"
+https://theintercept.com/feed/?rss "News"
+https://rss.nytimes.com/services/xml/rss/nyt/US.xml "News"
+https://rss.nytimes.com/services/xml/rss/nyt/World.xml "News"
+http://feeds.feedburner.com/realclearpolitics/qlMj "News"
+https://fd.nl/?rss "News"
+https://www.nrc.nl/rss/ "News" 
+http://feeds.nos.nl/nosnieuwsalgemeen "News"
+http://feeds.nos.nl/nosnieuwseconomie "News"
+http://feeds.nos.nl/nosnieuwspolitiek "News"
+https://www.nu.nl/rss/algemeen "News"
+https://www.volkskrant.nl/voorpagina/rss.xml "News"
+https://www.volkskrant.nl/nieuws-achtergrond/rss.xml "News"
+https://www.volkskrant.nl/uitgelicht/rss.xml "News"
+https://www.volkskrant.nl/economie/rss.xml "News"
+https://www.volkskrant.nl/columns-opinie/rss.xml "Opinion"
+https://www.volkskrant.nl/wetenschap/rss.xml "News"
+https://www.volkskrant.nl/eten-en-drinken/rss.xml "Food"
+https://www.economist.com/the-world-this-week/rss.xml "News"
+https://www.economist.com/leaders/rss.xml "News"
+https://www.economist.com/briefing/rss.xml "News"
+https://www.economist.com/special-report/rss.xml "News"
+https://www.economist.com/britain/rss.xml "News"
+https://www.economist.com/europe/rss.xml "News"
+https://www.economist.com/united-states/rss.xml "News"
+https://www.economist.com/the-americas/rss.xml "News"
+https://www.economist.com/middle-east-and-africa/rss.xml "News"
+https://www.economist.com/asia/rss.xml "News"
+https://www.economist.com/china/rss.xml "News"
+https://www.economist.com/international/rss.xml "News"
+https://www.economist.com/business/rss.xml "News"
+https://www.economist.com/finance-and-economics/rss.xml "News"
+https://www.economist.com/science-and-technology/rss.xml "News"
+https://nyxt.atlas.engineer/feed "Tech"
