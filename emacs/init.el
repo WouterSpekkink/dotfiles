@@ -1,4 +1,4 @@
-;;;;;;;;;;;;;; )
+;;;;;;;;;;;;;; 
 ;; STARTUP  ;;
 ;;;;;;;;;;;;;;
 
@@ -870,17 +870,14 @@
 	  (car (pdf-view-active-region-text)))
       (user-error "Buffer %S not alive" pdf-buf-name))))
 
-;; Workaround for org-roam minibuffer issues
-(defun my/org-roam-node-read--to-candidate (node template)
-  "Return a minibuffer completion candidate given NODE.
-  TEMPLATE is the processed template used to format the entry."
-  (let ((candidate-main (org-roam-node--format-entry
-			 template
-			 node
-			 (1- (frame-width)))))
-    (cons (propertize candidate-main 'node node) node)))
-(advice-add 'org-roam-node-read--to-candidate :override #'my/org-roam-node-read--to-candidate)
+;; Customize org-roam-minibuffer
+(setq org-roam-node-display-template (concat "${title:100} "
+					     "${refs:50} "
+					     (propertize "${tags:10}" 'face 'org-tag)))
 
+;; Fix literal links in org-roam-buffer
+(setq org-fold-core-style "overlays")
+					     
 ;; I shamelessly copy-pasted these from doom emacs, because they are super useful.
 (defun +org-realign-table-maybe-h ()
   "Auto-align table under cursor."
