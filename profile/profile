@@ -92,3 +92,4 @@ export PYENV_ROOT="$XDG_CONFIG_HOME/pyenv"
 export PYLINTRC="$XDG_CONFIG_HOME/pylint/pylintrc"
 export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export EDITOR="nvim"
+export FREEPLANE_USE_UNSUPPORTED_JAVA_VERSION=1
