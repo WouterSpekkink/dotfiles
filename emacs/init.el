@@ -871,7 +871,6 @@
 
 ;; Customize org-roam-minibuffer
 (setq org-roam-node-display-template (concat "${title:100} "
-					     "${refs:50} "
 					     (propertize "${tags:10}" 'face 'org-tag)))
 
 ;; I shamelessly copy-pasted these from doom emacs, because they are super useful.
