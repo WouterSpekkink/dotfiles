@@ -445,7 +445,8 @@
 ;;;;;;;;;;;;;;
 (with-eval-after-load "flyspell"
   (setq ispell-program-name "hunspell")
-  (setq ispell-list-command "--list"))
+  (setq ispell-list-command "--list")
+  (setq ispell-dictionary "en_GB"))
 
 (use-package flyspell-correct-ivy
   :straight t
@@ -483,6 +484,15 @@
   :straight t
   :hook (company-mode . company-box-mode))
 
+;;;;;;;;;;;;;
+;; R-stuff ;;
+;;;;;;;;;;;;;
+(use-package ess
+  :straight t
+  :hook
+  (ess-r-mode . electric-pair-mode)
+  (inferior-ess-r-mode . electric-pair-mode))
+
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
@@ -491,7 +501,9 @@
   :straight t
   :hook ((lisp-mode)
 	 (emacs-lisp-mode)
-	 (sly-mrepl-mode)))
+	 (sly-mrepl-mode)
+	 (ess-r-mode)
+	 (inferior-ess-r-mode)))
 
 (use-package rainbow-mode
   :straight t)
@@ -699,6 +711,8 @@
 	 (c++-mode . lsp)
 	 (python-mode . lsp)
 	 (js2-mode . lsp)
+	 (ess-r-mode . lsp)
+	 (inferior-ess-r-mode . lsp)
 	 (lsp-mode . evil-normalize-keymaps)))
 
 (use-package lsp-ui

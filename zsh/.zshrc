@@ -62,7 +62,7 @@ bindkey '^[[B' history-substring-search-down
 # Aliases
 alias weechat="weechat -d ${XDG_CONFIG_HOME}/weechat"
 alias exult="exult -c $HOME/.local/share/exult/exult.cfg"
-alias gephi="$HOME/Tools/gephi-0.9.7/bin/gephi"
+alias gephi="$HOME/Tools/gephi-0.10.1/bin/gephi"
 alias ls="ls --color"
 alias vnc="$HOME/Tools/VNC/VNC-Viewer-6.20.529-Linux-x64 & disown && exit"
 alias hdright="xrandr --output HDMI-0 --auto --right-of eDP-1-1"
