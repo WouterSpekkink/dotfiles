@@ -136,6 +136,31 @@
    "C-M-s" 'org-noter-create-skeleton
    "C-M-q" 'org-noter-kill-session))
 
+(general-define-key
+ :keymaps 'ess-r-mode-map
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "m" '(:ignore t :wk "localleader")
+ "me" '(:ignore t :wk "evaluate")
+ "mer" '(ess-eval-region :wk "region")
+ "mel" '(ess-eval-line :wk "line")
+ "meb" '(ess-eval-buffer :wk "buffer"))
+
+(general-define-key
+ :keymaps 'ess-rdired-mode-map
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "m" '(:ignore t :wk "localleader")
+ "mv" '(ess-view-data-print :wk "view data"))
+
+(general-define-key
+ :keymaps 'ess-view-data-mode-map
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "m" '(:ignore t :wk "localleader")
+ "ms" '(ess-view-data-sort :wk "sort")
+ "mq" '(ess-view-data-quit :wk "quit"))
+
 (eval-after-load "ivy"
   (general-define-key
    :keymaps 'ivy-minibuffer-map

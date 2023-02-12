@@ -493,6 +493,9 @@
   (ess-r-mode . electric-pair-mode)
   (inferior-ess-r-mode . electric-pair-mode))
 
+(use-package ess-view-data
+  :straight t)
+
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
