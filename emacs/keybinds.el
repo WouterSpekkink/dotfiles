@@ -138,6 +138,7 @@
 
 (general-define-key
  :keymaps 'ess-r-mode-map
+ :states '(normal visual insert replace emacs)
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  "m" '(:ignore t :wk "localleader")
