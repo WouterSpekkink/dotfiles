@@ -10,7 +10,7 @@
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
 	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+/	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
 	 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
@@ -274,10 +274,23 @@
 		 (file+head "%<%Y-%m-%d-%H%M%S>-${slug}.org"
 			    "#+title: ${title}\n")
 		 :unnarrowed t)
-		("r" "bibliography reference" plain
+		("j" "journal article" plain
 		 (file "~/org/org-roam/templates/orb-capture")
 		 :target
-		 (file+head "references/${citekey}.org" "#+title: ${title}\n")))))
+		 (file+head "references/${citekey}.org" "#+title: ${title}\n#+filetags: journal_article\n"))
+		("c" "book chapter" plain
+		 (file "~/org/org-roam/templates/orb-capture")
+		 :target
+		 (file+head "references/${citekey}.org" "#+title: ${title}\n#+filetags: book_chapter\n"))
+		("b" "book" plain
+		 (file "~/org/org-roam/templates/orb-capture")
+		 :target
+		 (file+head "references/${citekey}.org" "#+title: ${title}\n#+filetags: book\n"))
+		("o" "other reference" plain
+		 (file "~/org/org-roam/templates/orb-capture")
+		 :target
+		 (file+head "references/${citekey}.org" "#+title: ${title}\n"))
+		)))
 
   ;; And now we set necessary variables for org-roam-dailies
   (setq org-roam-dailies-directory "daily/")
@@ -674,7 +687,7 @@
   :straight t
   :config
   (setenv "WORKON_HOME" "~/.config/pyenv/versions")
-  (pyvenv-workon "3.10.6") ;; Default venv
+  (pyvenv-workon "3.10.10") ;; Default venv
   (pyvenv-tracking-mode 1))
 
 
