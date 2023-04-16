@@ -42,6 +42,7 @@
  "X" '(org-capture :wk "org capture")
  "U" '(straight-pull-all :wk "update all packages")
  "u" '(universal-argument :wk "universal argument")
+ "c" '(compile :wk "compile")
 
  "i" '(:ignore t :wk "insert")
  "ic" '(insert-char :wk "character")
@@ -51,6 +52,7 @@
  "tw" '(:ignore t :wk "workspaces")
  "tws" '(treemacs-switch-workspace :wk "switch workspace")
  "twe" '(treemacs-edit-workspaces :wk "edit workspaces"))
+
 
 (general-define-key
  :keymaps 'flyspell-mode-map
