@@ -6,11 +6,11 @@
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
+      (bootstrap-version 6))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
 	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
 	 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
@@ -245,6 +245,7 @@
 ;; org-noter stuff
 (use-package org-noter
   :straight t
+  :after pdf-tools
   :config
   (setq
    org-noter-notes-search-path "~/org/org-roam/references/"
@@ -382,6 +383,17 @@
 
 (use-package mu4e
   :straight t
+  
+  ;; TEMP FIX FOR EVIL PROBLEMS - BEGIN
+  :init
+  (defun mu4e--main-action-str (name func)
+    "This seems to be needed until evil-collection supports the latest
+  version of mu4e."
+    "mu4e-main-action")
+  (defun evil-collection-mu4e-update-main-view@override())
+  (advice-add 'evil-collection-mu4e-update-main-view :override #'evil-collection-mu4e-update-main-view@override)
+  ;; TEMP FIX FOR EVIL PROBLEMS - END 
+  
   :config
   (setq mu4e-user-mail-address-list '("spekkink@essb.eur.nl"))
   ;; viewing options
@@ -449,11 +461,11 @@
   (org-msg-mode))
 
 ;; Email alert
-(use-package mu4e-alert
-  :straight t
-  :after mu4e
-  :config
-  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
+;; (use-package mu4e-alert
+;;   :straight t
+;;   :after mu4e
+;;   :config
+;;   (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
 
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
