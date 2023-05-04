@@ -383,17 +383,6 @@
 
 (use-package mu4e
   :straight t
-  
-  ;; TEMP FIX FOR EVIL PROBLEMS - BEGIN
-  :init
-  (defun mu4e--main-action-str (name func)
-    "This seems to be needed until evil-collection supports the latest
-  version of mu4e."
-    "mu4e-main-action")
-  (defun evil-collection-mu4e-update-main-view@override())
-  (advice-add 'evil-collection-mu4e-update-main-view :override #'evil-collection-mu4e-update-main-view@override)
-  ;; TEMP FIX FOR EVIL PROBLEMS - END 
-  
   :config
   (setq mu4e-user-mail-address-list '("spekkink@essb.eur.nl"))
   ;; viewing options
@@ -499,7 +488,7 @@
   (global-company-mode)
   (setq company-show-numbers            t
 	company-minimum-prefix-length   1
-	company-idle-delay              0.5
+	company-idle-delay              1.5
 	company-backends
 	'((company-files          ; files & directory
 	   company-keywords       ; keywords
@@ -529,11 +518,11 @@
 
 (use-package rainbow-delimiters
   :straight t
-  :hook ((lisp-mode)
-	 (emacs-lisp-mode)
-	 (sly-mrepl-mode)
-	 (ess-r-mode)
-	 (inferior-ess-r-mode)))
+  :hook ((lisp-mode . rainbow-mode)
+	 (emacs-lisp-mode . rainbow-mode)
+	 (sly-mrepl-mode . rainbow-mode)
+	 (ess-r-mode . rainbow-mode)
+	 (inferior-ess-r-mode . rainbow-mode)))
 
 (use-package rainbow-mode
   :straight t)

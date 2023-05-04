@@ -79,7 +79,7 @@ alias pioneer="cd $HOME/Games/pioneer && ./pioneer"
 alias frontier="cd $HOME/Games/frontier && dosbox frontier.exe -fullscreen"
 alias update="sudo pacman -Syu"
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
-alias cleancache 'paccache -r'
+alias cleancache="paccache -r"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias la="ls -a"
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/yarnrc"
