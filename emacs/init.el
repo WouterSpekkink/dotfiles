@@ -403,6 +403,7 @@
 	mu4e-compose-signature-auto-include nil
 	mu4e-view-use-gnus t
 	mu4e-change-filenames-when-moving t
+	mu4e-sent-messages-behavior 'delete
 	message-send-mail-function 'smtpmail-send-it
 	message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n"
 	message-citation-line-function 'message-insert-formatted-citation-line
@@ -410,6 +411,7 @@
 	org-mu4e-convert-to-html t)
   (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
   (add-hook 'mu4e-compose-mode-hook (lambda() (use-hard-newlines -1)))
+  (add-hook 'mu4e-compose-mode-hook #'(lambda () (auto-save-mode -1)))
   ;; Setup email account
   (setq mu4e-contexts
 	`(
@@ -516,6 +518,13 @@
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
 
+;; general (keybinds)
+(use-package general
+  :straight t
+  :config
+  (load "~/.config/emacs/keybinds.el")) 
+
+;; rainbow delimiters
 (use-package rainbow-delimiters
   :straight t
   :hook ((lisp-mode . rainbow-mode)
@@ -527,16 +536,13 @@
 (use-package rainbow-mode
   :straight t)
 
+;; word count
 (use-package wc-mode
   :straight t
   :config
   (add-to-list 'global-mode-string '("" wc-buffer-stats)))
 
-(use-package general
-  :straight t
-  :config
-  (load "~/.config/emacs/keybinds.el")) 
-
+;; use trash instead of rm
 (setq delete-by-moving-to-trash t)
 
 ;; Get rid of stupid sound
@@ -660,6 +666,12 @@
 (use-package magit
   :straight t)
 
+;; Multiple cursors
+(use-package multiple-cursors
+  :straight t)
+
+;; QDA in org-mode
+
 ;;;;;;;;;;;;;;;;
 ;; Javascript ;;
 ;;;;;;;;;;;;;;;;
@@ -699,7 +711,9 @@
 ;;;;;;;;;;
 
 (use-package rustic
-  :straight t)
+  :straight t
+  :hook
+  (rustic-mode . electric-pair-mode))
 
 ;;;;;;;;;
 ;; C++ ;;
@@ -828,17 +842,6 @@
 (defun ws/verify-refile-target ()
   "Exclude todo keywords with a done state"
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
 
 (defun getcal (url file)
   "Download ics file and add it to file"

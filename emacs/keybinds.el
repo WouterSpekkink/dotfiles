@@ -53,6 +53,12 @@
  "tws" '(treemacs-switch-workspace :wk "switch workspace")
  "twe" '(treemacs-edit-workspaces :wk "edit workspaces"))
 
+(general-define-key
+ :states '(normal visual insert motion emacs)
+ :keymaps '(override global)
+ "C->" 'mc/mark-next-like-this
+ "C-<" 'mc/mark-previous-like-this
+ "C-!" 'mc/mark-all-like-this)
 
 (general-define-key
  :keymaps 'flyspell-mode-map
