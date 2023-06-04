@@ -27,6 +27,8 @@
  "om" '(mu4e :wk "email")
  "ol" '(helm-bibtex :wk "literature")
  "oa" '(org-agenda :wk "agenda")
+ "od" '(dired :wk "dired")
+ "om" '(magit :wk "magit")
 
  "n" '(:ignore t :wk "notes")
  "nd" '(deft :wk "deft")

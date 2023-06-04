@@ -670,7 +670,8 @@
 (use-package multiple-cursors
   :straight t)
 
-;; QDA in org-mode
+;; gdb
+(setq gdb-many-windows t)
 
 ;;;;;;;;;;;;;;;;
 ;; Javascript ;;
@@ -720,6 +721,7 @@
 ;;;;;;;;;
 
 (add-hook 'c++-mode-hook #'electric-pair-mode)
+(add-hook 'c-mode-hook #'electric-pair-mode)
 
 ;;;;;;;;;;;;;;;;;
 ;; Common Lisp ;;
