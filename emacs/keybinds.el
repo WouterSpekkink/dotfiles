@@ -28,7 +28,7 @@
  "ol" '(helm-bibtex :wk "literature")
  "oa" '(org-agenda :wk "agenda")
  "od" '(dired :wk "dired")
- "om" '(magit :wk "magit")
+ "og" '(magit :wk "magit")
 
  "n" '(:ignore t :wk "notes")
  "nd" '(deft :wk "deft")
