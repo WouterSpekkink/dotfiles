@@ -95,3 +95,4 @@ export EDITOR="nvim"
 export FREEPLANE_USE_UNSUPPORTED_JAVA_VERSION=1
 export PRODIGY_HOME="$XDG_CONFIG_HOME/prodigy"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/wouter/.config/pyenv/versions/tf/lib/python3.8/site-packages/tensorrt/
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"

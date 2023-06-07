@@ -84,6 +84,7 @@ alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias la="ls -a"
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/yarnrc"
 alias N="sudo -E nnn -dH"
+alias svn="svn --config-dir \ "$XDG_CONFIG_HOME\ "/suversion"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'
