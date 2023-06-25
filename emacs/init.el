@@ -69,9 +69,8 @@
 (use-package org
   :straight t (:type built-in)
   :hook ((org-mode . flyspell-mode)
-	 (org-mode . org-bullets-mode)
-	 (org-mode . org-indent-mode)
 	 (org-mode . +org-enable-auto-reformat-tables-h)
+	 ;;(org-mode . org-indent-mode)
 	 (org-mode . writegood-mode )
 	 (org-mode . visual-line-mode))
   :config
@@ -215,11 +214,6 @@
 		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
 		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-;; org-bullets
-(use-package org-bullets
-  :straight t
-  :after org)
-
 ;; Set up org-ref stuff
 (use-package org-ref
   :straight t
@@ -233,8 +227,8 @@
   (org-ref-insert-ref-function 'org-ref-insert-ref-link)
   (org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
 
-  (setq org-ref-completion-library 'org-ref-ivy-cite
-	org-export-latex-format-toc-function 'org-export-latex-no-toc
+  ;(setq org-ref-completion-library 'org-ref-ivy-cite
+  (setq	org-export-latex-format-toc-function 'org-export-latex-no-toc
 	org-ref-get-pdf-filename-function
 	(lambda (key) (car (bibtex-completion-find-pdf key)))
 	org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point
@@ -327,6 +321,19 @@
 	orb-process-file-keyword t
 	orb-file-field-extensions '("pdf")))
 
+;; consult-org-roam
+(use-package consult
+  :straight t)
+
+(use-package consult-org-roam
+  :straight t
+  :after org-roam
+  :config
+  (setq consult-org-roam-mode 1
+	consult-org-roam-grep-func #'consult-ripgrep
+	)
+  )
+
 ;; evil-org
 (use-package evil-org
   :straight t
@@ -370,6 +377,12 @@
    org-agenda-current-time-string
    "⭠ now ─────────────────────────────────────────────────")
   (global-org-modern-mode))
+
+;; ;; org-modern-indent
+;; (use-package org-modern-indent
+;;   :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+;;   :config
+;;   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
 ;; org-reveal
 (use-package ox-reveal
@@ -466,9 +479,9 @@
   (setq ispell-list-command "--list")
   (setq ispell-dictionary "en_GB"))
 
-(use-package flyspell-correct-ivy
-  :straight t
-  :after flyspell)
+;(use-package flyspell-correct-ivy
+;  :straight t
+;  :after flyspell)
 
 (use-package langtool
   :straight t
@@ -555,41 +568,62 @@
 (setq make-backup-files nil) 
 
 ;; Ivy
-(use-package ivy
-  :straight t
-  :config
-  (ivy-mode))
+;; (use-package ivy
+;;   :straight t
+;;   :config
+;;   (ivy-mode))
 
+;; Vertico
+(use-package vertico
+  :straight t
+  :init
+  (vertico-mode)
+  :config
+  (setq read-file-name-completion-ignore-case t
+	read-buffer-completion-ignore-case t
+	completion-ignore-case t
+	vertico-resize t)
+  )
+(use-package marginalia
+  :straight t
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
+
+;; Counsel
 (use-package counsel
   :straight t
   :config
   (counsel-mode 1))
 
-(use-package all-the-icons-ivy
-  :straight t
-  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
+;; (use-package all-the-icons-ivy
+;;   :straight t
+;;   :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
 
-(use-package ivy-rich
-  :straight t
-  :config
-  (ivy-rich-mode 1))
+;; (use-package ivy-rich
+;;   :straight t
+;;   :config
+;;   (ivy-rich-mode 1))
 
-(use-package amx
-  :straight t
-  :config
-  (amx-mode))
+;; (use-package amx
+;;   :straight t
+;;   :config
+;;   (amx-mode))
 
-(use-package flx
-  :straight t
-  :config
-  (setq ivy-re-builders-alist
-	'((t . ivy--regex-plus)))
-  (setq ivy-initial-inputs-alist nil))
+;; (use-package flx
+;;   :straight t
+;;   :config
+;;   (setq ivy-re-builders-alist
+;; 	'((t . ivy--regex-plus)))
+;;   (setq ivy-initial-inputs-alist nil))
 
-(use-package ivy-prescient
-  :straight t
-  :config
-  (ivy-prescient-mode))
+;; (use-package ivy-prescient
+;;   :straight t
+;;   :config
+;;   (ivy-prescient-mode))
 
 ;; Line numbers
 (global-display-line-numbers-mode)
@@ -644,16 +678,6 @@
   (setq-default pdf-view-display-size 'fit-width)
   :custom
   (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
-
-;; For deft
-(use-package deft
-  :straight t
-  :config
-  (setq deft-extensions '("org")
-	deft-directory "~/org/org-roam/"
-	deft-recursive t
-	deft-strip-summary-regexp ":PROPERTIES:\n\\(.+\n\\)+:END:\n"
-	deft-use-filename-as-title t))
 
 ;; Treemacs
 (use-package treemacs
@@ -763,9 +787,9 @@
   (setq lsp-ui-doc-enable nil)
   (setq lsp-ui-doc-delay 0.5))
 
-(use-package lsp-ivy
-  :straight t
-  :commands lsp-ivy-workspace-symbol)
+;(use-package lsp-ivy
+;  :straight t
+;  :commands lsp-ivy-workspace-symbol)
 
 (use-package lsp-treemacs
   :straight t
@@ -914,8 +938,8 @@
       (user-error "Buffer %S not alive" pdf-buf-name))))
 
 ;; Customize org-roam-minibuffer
-(setq org-roam-node-display-template (concat "${title:100} "
-					     (propertize "${tags:10}" 'face 'org-tag)))
+(setq org-roam-node-display-template (concat "${title:40} "
+					     (propertize "${tags:20}" 'face 'org-tag)))
 
 ;; I shamelessly copy-pasted these from doom emacs, because they are super useful.
 (defun +org-realign-table-maybe-h ()

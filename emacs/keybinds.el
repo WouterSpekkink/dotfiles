@@ -31,12 +31,13 @@
  "og" '(magit :wk "magit")
 
  "n" '(:ignore t :wk "notes")
- "nd" '(deft :wk "deft")
  "np" '(org-noter :w "noter")
  "nr" '(:ignore t :wk "org-roam")
  "nrf" '(org-roam-node-find :wk "find note")
  "nri" '(org-roam-node-insert :wk "insert note")
  "nrr" '(org-roam-buffer-toggle :wk "buffer")
+ "nrb" '(consult-org-roam-backlinks :wk "browse backlinks")
+ "nrs" '(consult-org-roam-search :wk "search")
  "nrd" '(:ignore t :wk "dailies")
  "nrdt" '(org-roam-dailies-goto-today :wk "today")
  "nrdd" '(org-roam-dailies-find-date :wk "pick date")
@@ -54,6 +55,13 @@
  "tw" '(:ignore t :wk "workspaces")
  "tws" '(treemacs-switch-workspace :wk "switch workspace")
  "twe" '(treemacs-edit-workspaces :wk "edit workspaces"))
+
+(general-define-key
+ :keymaps '(vertico-map)
+ "C-J" #'vertico-next-group
+ "C-K" #'vertico-previous-group
+ "C-j" #'vertico-next
+ "C-k" #'vertico-previous)
 
 (general-define-key
  :states '(normal visual insert motion emacs)

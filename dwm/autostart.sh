@@ -10,5 +10,5 @@ pgrep emacs || emacs --daemon &
 pgrep davmail || davmail &
 
 # Run startup scripts
-~/.local/bin/checkaudio &
+#~/.local/bin/checkaudio &
 ~/.local/bin/remaps &
