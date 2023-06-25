@@ -479,9 +479,9 @@
   (setq ispell-list-command "--list")
   (setq ispell-dictionary "en_GB"))
 
-;(use-package flyspell-correct-ivy
-;  :straight t
-;  :after flyspell)
+(use-package flyspell-correct-popup
+  :straight t
+  :after flyspell)
 
 (use-package langtool
   :straight t
@@ -567,12 +567,6 @@
 ;; Get rid of the annoying backup files
 (setq make-backup-files nil) 
 
-;; Ivy
-;; (use-package ivy
-;;   :straight t
-;;   :config
-;;   (ivy-mode))
-
 ;; Vertico
 (use-package vertico
   :straight t
@@ -598,32 +592,6 @@
   :straight t
   :config
   (counsel-mode 1))
-
-;; (use-package all-the-icons-ivy
-;;   :straight t
-;;   :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
-
-;; (use-package ivy-rich
-;;   :straight t
-;;   :config
-;;   (ivy-rich-mode 1))
-
-;; (use-package amx
-;;   :straight t
-;;   :config
-;;   (amx-mode))
-
-;; (use-package flx
-;;   :straight t
-;;   :config
-;;   (setq ivy-re-builders-alist
-;; 	'((t . ivy--regex-plus)))
-;;   (setq ivy-initial-inputs-alist nil))
-
-;; (use-package ivy-prescient
-;;   :straight t
-;;   :config
-;;   (ivy-prescient-mode))
 
 ;; Line numbers
 (global-display-line-numbers-mode)
