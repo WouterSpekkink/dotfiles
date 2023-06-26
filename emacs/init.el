@@ -33,8 +33,8 @@
   :straight t
   :config
   (which-key-mode)
-  (setq which-key-popup-type 'minibuffer)
-  (setq max-mini-window-height 0.5))
+  (setq which-key-popup-type 'minibuffer
+	max-mini-window-height 0.5))
 
 ;;;;;;;;;;;;;;;
 ;; VIM STUFF ;;
@@ -48,9 +48,9 @@
   :init
   ;; allows for using cgn
   ;; (setq evil-search-module 'evil-search_
-  (setq evil-want-keybinding nil)
+  (setq evil-want-keybinding nil
   ;; no vim insert bindings
-  (setq evil-undo-system 'undo-fu)
+	evil-undo-system 'undo-fu)
   :config
   (setq evil-want-C-u-scroll t)
   (evil-mode 1))
@@ -70,30 +70,28 @@
   :straight t (:type built-in)
   :hook ((org-mode . flyspell-mode)
 	 (org-mode . +org-enable-auto-reformat-tables-h)
-	 ;;(org-mode . org-indent-mode)
 	 (org-mode . writegood-mode )
 	 (org-mode . visual-line-mode))
   :config
-  (setq org-directory "~/org/")
-  (setq org-hide-emphasis-markers t)
-  (setq org-log-done 'time)
-  (setq org-agenda-window-setup "only window")
-
-  (setq org-default-notes-file "~/org/refile.org")
-  (setq org-refile-targets (quote ((nil :maxlevel . 5)
-				   (org-agenda-files :maxlevel . 5))))
-  (setq org-agenda-files (quote("~/org/"
+  (setq org-directory "~/org/"
+	org-hide-emphasis-markers t
+	org-log-done 'time
+	org-agenda-window-setup "only window"
+	org-default-notes-file "~/org/refile.org"
+	org-refile-targets (quote ((nil :maxlevel . 5)
+				   (org-agenda-files :maxlevel . 5)))
+	org-agenda-files (quote("~/org/"
 				"~/org/synced/"
 				"~/org/org-roam/"
 				"~/org/org-roam/daily/"
 				"~/org/org-roam/references/"
-				)))
-  (setq  org-outline-path-complete-in-steps nil)
-  
-  (setq org-refile-use-outline-path t)
-  (setq org-refile-allow-creating-parent-nodes (quote confirm))
-  ;; org keyword related stuff
-  (setq org-todo-keywords
+				))
+	org-refile-use-outline-path 'file
+	org-outline-path-complete-in-steps nil
+	org-refile-allow-creating-parent-nodes (quote confirm)
+
+	;; org keyword related stuff
+	org-todo-keywords
 	(quote ((sequence
 		 "TODO(t)"
 		 "PROJ(p)"
@@ -114,23 +112,23 @@
 		 "[?](W)"
 		 "|"
 		 "[X](D)"
-		 ))))
+		 )))
 
-  (setq org-todo-keyword-faces
+	org-todo-keyword-faces
 	(quote (
-		("NEXT" +-lock-constant-face bold))))
+		("NEXT" +-lock-constant-face bold)))
 
-  (setq org-todo-state-tags-triggers
+	org-todo-state-tags-triggers
 	(quote (("KILL" ("KILL" . t))
 		("WAIT" ("WAIT" . t))
 		("HOLD" ("WAIT") ("HOLD" . t))
 		(done ("WAIT") ("HOLD"))
 		("TODO" ("WAIT") ("KILL") ("HOLD"))
 		("NEXT" ("WAIT") ("KILL") ("HOLD"))
-		("DONE" ("WAIT") ("KILL") ("HOLD")))))
+		("DONE" ("WAIT") ("KILL") ("HOLD"))))
 
-  ;; org capture related stuff
-  (setq org-capture-templates
+	;; org capture related stuff
+	org-capture-templates
 	(quote (("r" "respond" entry (file+headline "~/org/refile.org" "Emails")
 		 "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
 		("p" "project" entry (file+headline "~/org/refile.org" "Projects")
@@ -144,14 +142,10 @@
 		)))
 
   ;; Caldav sync
-  (setq diary-location "~/.local/share/diary/")
-
-  (setq calendars
-	'(("outlook" . "http://localhost:1080/users/45995wsp@eur.nl/calendar/")
-	  ))
-
-  (setq org-agenda-include-diary t)
-  (setq diary-file "~/.local/share/diary/outlook")
+  (setq diary-location "~/.local/share/diary/"
+	calendars '(("outlook" . "http://localhost:1080/users/45995wsp@eur.nl/calendar/"))
+	org-agenda-include-diary t
+	diary-file "~/.local/share/diary/outlook")
 
   ;; Kill capture frame
   (defvar kk/delete-frame-after-capture 0 "Whether to delete the last frame after the current capture")
@@ -241,21 +235,22 @@
   :straight t
   :after pdf-tools
   :config
-  (setq
-   org-noter-notes-search-path "~/org/org-roam/references/"
-   org-noter-hide-other nil
-   org-noter-separate-notes-from-heading t
-   org-noter-always-create-frame t))
+  (setq org-noter-notes-search-path "~/org/org-roam/references/"
+	org-noter-hide-other nil
+	org-noter-separate-notes-from-heading t
+	org-noter-always-create-frame t))
 
 ;; org-roam
 (use-package org-roam
   :straight t
   :after org
+  :hook (org-roam-mode . visual-line-mode)
   :config
   (setq org-roam-directory "~/org/org-roam/")
   (add-to-list 'display-buffer-alist
 	       '("\\*org-roam\\*"
 		 (display-buffer-in-side-window)
+		 (visual-line-mode)
 		 (side . right)
 		 (slot . 0)
 		 (window-width . 0.33)
@@ -263,7 +258,7 @@
 				       (no-delete-other-windows . t)))))
   
   (org-roam-db-autosync-mode)
- ;; Let's set up some org-roam capture templates
+  ;; Let's set up some org-roam capture templates
   (setq org-roam-capture-templates
 	(quote (("d" "default" plain
 		 "%?"
@@ -290,8 +285,8 @@
 		)))
 
   ;; And now we set necessary variables for org-roam-dailies
-  (setq org-roam-dailies-directory "daily/")
-  (setq org-roam-dailies-capture-templates
+  (setq org-roam-dailies-directory "daily/"
+	org-roam-dailies-capture-templates
 	'(("d" "default" entry
 	   "* %?"
 	   :target
@@ -330,9 +325,7 @@
   :after org-roam
   :config
   (setq consult-org-roam-mode 1
-	consult-org-roam-grep-func #'consult-ripgrep
-	)
-  )
+	consult-org-roam-grep-func #'consult-ripgrep))
 
 ;; evil-org
 (use-package evil-org
@@ -353,29 +346,24 @@
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-
-  (setq
-   ;; Edit settings
-   org-auto-align-tags nil
-   org-tags-column 0
-   org-catch-invisible-edits 'show-and-error
-   org-special-ctrl-a/e t
-   org-insert-heading-respect-content t
-
-   ;; Org styling, hide markup etc.
-   org-hide-emphasis-markers t
-   org-pretty-entities t
-   org-ellipsis "…"
-
-   ;; Agenda styling
-   org-agenda-tags-column 0
-   org-agenda-block-separator ?─
-   org-agenda-time-grid
-   '((daily today require-timed)
-     (800 1000 1200 1400 1600 1800 2000)
-     " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-   org-agenda-current-time-string
-   "⭠ now ─────────────────────────────────────────────────")
+  (setq org-auto-align-tags nil
+	org-tags-column 0
+	org-catch-invisible-edits 'show-and-error
+	org-special-ctrl-a/e t
+	org-insert-heading-respect-content t
+	;; Org styling, hide markup etc.
+	org-hide-emphasis-markers t
+	org-pretty-entities t
+	org-ellipsis "…"
+	;; Agenda styling
+	org-agenda-tags-column 0
+	org-agenda-block-separator ?─
+	org-agenda-time-grid
+	'((daily today require-timed)
+	  (800 1000 1200 1400 1600 1800 2000)
+	  " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+	org-agenda-current-time-string
+	"⭠ now ─────────────────────────────────────────────────")
   (global-org-modern-mode))
 
 ;; ;; org-modern-indent
@@ -397,16 +385,16 @@
 (use-package mu4e
   :straight t
   :config
-  (setq mu4e-user-mail-address-list '("spekkink@essb.eur.nl"))
-  ;; viewing options
-  (setq mu4e-view-show-addresses t)
-  ;; Do not leave message open after it has been sent
-  (setq message-kill-buffer-on-exit t)
-  ;; Don't ask for a 'context' upon opening mu4e
-  (setq mu4e-context-policy 'pick-first)
-  ;; Don't ask to quit
-  (setq mu4e-confirm-quit nil)
-  (setq mu4e-root-maildir (expand-file-name "~/.local/share/mail/essb")
+  (setq mu4e-user-mail-address-list '("spekkink@essb.eur.nl")
+	;; viewing options
+	mu4e-view-show-addresses t
+	;; Do not leave message open after it has been sent
+	message-kill-buffer-on-exit t
+	;; Don't ask for a 'context' upon opening mu4e
+	mu4e-context-policy 'pick-first
+	;; Don't ask to quit
+	mu4e-confirm-quit nil
+	mu4e-root-maildir (expand-file-name "~/.local/share/mail/essb")
 	mu4e-get-mail-command "mbsync -a -c \"$XDG_CONFIG_HOME/isync/mbsyncrc\""
 	mu4e-index-update-in-background t
 	mu4e-use-fancy-chars t
@@ -452,9 +440,9 @@
   :straight t
   :after mu4e
   :config
-  (setq mail-user-agent 'mu4e-user-agent)
-  (setq org-msg-default-alternatives nil)
-  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+  (setq mail-user-agent 'mu4e-user-agent
+	org-msg-default-alternatives nil
+	org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
 	org-msg-startup "hidestars indent inlineimages"
 	org-msg-recipient-names '(("spekkink@essb.eur.nl" . "Wouter"))
 	org-msg-greeting-name-limit 3
@@ -462,7 +450,7 @@
 				       (reply-to-html	. (text html))
 				       (reply-to-text	. (text)))
 	org-msg-convert-citation t)
-  (org-msg-mode))
+(org-msg-mode))
 
 ;; Email alert
 ;; (use-package mu4e-alert
@@ -475,9 +463,9 @@
 ;; Spelling ;;
 ;;;;;;;;;;;;;;
 (with-eval-after-load "flyspell"
-  (setq ispell-program-name "hunspell")
-  (setq ispell-list-command "--list")
-  (setq ispell-dictionary "en_GB"))
+  (setq ispell-program-name "hunspell"
+	ispell-list-command "--list"
+	ispell-dictionary "en_GB"))
 
 (use-package flyspell-correct-popup
   :straight t
@@ -487,8 +475,8 @@
   :straight t
   :config
   (setq langtool-java-classpath
-	"/usr/share/languagetool:/usr/share/java/languagetool/*")
-  (setq langtool-default-language "en-GB"))
+	"/usr/share/languagetool:/usr/share/java/languagetool/*"
+	langtool-default-language "en-GB"))
 
 (use-package writegood-mode
   :straight t)
@@ -576,8 +564,8 @@
   (setq read-file-name-completion-ignore-case t
 	read-buffer-completion-ignore-case t
 	completion-ignore-case t
-	vertico-resize t)
-  )
+	vertico-resize t))
+
 (use-package marginalia
   :straight t
   :after vertico
@@ -616,7 +604,7 @@
 		 ("emacs-config" (or (filename . "init.el")
 				     (filename . "keybinds.el")))
 		 ("Email" (name . "^\\*mu4e-main\\*$"))
-	 ("emacs" (or
+		 ("emacs" (or
 			   (name . "^\\*scratch\\*$")
 			   (name . "^\\*Messages\\*$")
 			   (name . "^\\*straight-process\\*$")
@@ -738,8 +726,8 @@
 	treemacs-space-between-root-nodes nil
 	company-idle-delay 0.0
 	company-minimum-prefix-length 1
-	lsp-idle-delay 0.1)
-  (setq lsp-lens-enable nil) ;This resolves extreme cpu use 
+	lsp-idle-delay 0.1
+	lsp-lens-enable nil) ;This resolves extreme cpu use 
   :hook ((c-mode . lsp)
 	 (c++-mode . lsp)
 	 (python-mode . lsp)
@@ -752,8 +740,8 @@
   :straight t
   :commands (lsp-ui-mode)
   :config
-  (setq lsp-ui-doc-enable nil)
-  (setq lsp-ui-doc-delay 0.5))
+  (setq lsp-ui-doc-enable nil
+	lsp-ui-doc-delay 0.5))
 
 ;(use-package lsp-ivy
 ;  :straight t
@@ -771,8 +759,8 @@
   :after lsp-mode
   :straight t
   :config
-  (setq ccls-executable "/usr/bin/ccls")
-  (setq ccls-initialization-options
+  (setq ccls-executable "/usr/bin/ccls"
+	ccls-initialization-options
 	'(:index (:comments 2) :completion (:detailedLabel t))))
 
 (use-package modern-cpp-font-lock
@@ -787,9 +775,8 @@
   :init (global-flycheck-mode)
   :config
   (setq flycheck-display-errors-function
-	#'flycheck-display-error-messages-unless-error-list)
-
-  (setq flycheck-indication-mode nil))
+	#'flycheck-display-error-messages-unless-error-list
+	flycheck-indication-mode nil))
 
 (use-package flycheck-pos-tip
   :straight t
@@ -833,9 +820,9 @@
 ;;;;;;;;;;;;;;;;;;;
 ;; New functions ;;
 ;;;;;;;;;;;;;;;;;;;
-(defun ws/verify-refile-target ()
-  "Exclude todo keywords with a done state"
-  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+;(defun ws/verify-refile-target ()
+;  "Exclude todo keywords with a done state"
+;  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
 (defun getcal (url file)
   "Download ics file and add it to file"
@@ -878,9 +865,9 @@
     (setq kk/delete-frame-after-capture 0)
     (delete-frame))))
 
-(defun ws/verify-refile-target ()
-  "Eclude todo keywords with a done state"
-  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+;(defun ws/verify-refile-target ()
+;  "Eclude todo keywords with a done state"
+;  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
 (defun my/org-ref-open-pdf-at-point ()
   "Open the pdf for bibtex key under point if it exists."
