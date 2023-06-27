@@ -305,17 +305,6 @@
 	org-roam-ui-follow t
 	org-roam-ui-update-on-save t))
 
-;; org-roam-bibtex stuff
-(use-package org-roam-bibtex
-  :straight t
-  :after org-roam
-  :config
-  (org-roam-bibtex-mode)
-  (setq orb-preformat-keywords
-	'("citekey" "title" "url" "author-or-editor" "keywords" "file")
-	orb-process-file-keyword t
-	orb-file-field-extensions '("pdf")))
-
 ;; consult-org-roam
 (use-package consult
   :straight t)
@@ -365,12 +354,6 @@
 	org-agenda-current-time-string
 	"⭠ now ─────────────────────────────────────────────────")
   (global-org-modern-mode))
-
-;; ;; org-modern-indent
-;; (use-package org-modern-indent
-;;   :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
-;;   :config
-;;   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
 ;; org-reveal
 (use-package ox-reveal
@@ -564,22 +547,36 @@
   (setq read-file-name-completion-ignore-case t
 	read-buffer-completion-ignore-case t
 	completion-ignore-case t
-	vertico-resize t))
+	vertico-resize nil))
 
 (use-package marginalia
   :straight t
-  :after vertico
-  :ensure t
+  :after (vertico)
+  :general
+  (:keymaps 'minibuffer-local-map
+	    "M-A" 'marginalia-cycle)
   :custom
-  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  (marginalia-align 'right)
   :init
   (marginalia-mode))
 
-;; Counsel
-(use-package counsel
+(use-package all-the-icons
   :straight t
-  :config
-  (counsel-mode 1))
+  :if (display-graphic-p))
+
+(use-package all-the-icons-completion
+  :straight t
+  :after marginalia
+  :hook (marginalia-mode-hook . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))
+
+(use-package orderless
+  :straight t
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Line numbers
 (global-display-line-numbers-mode)
@@ -588,8 +585,11 @@
 ;; Mode-line
 (use-package doom-modeline
   :straight t
-  :config
-  (doom-modeline-mode))
+  :init
+  (doom-modeline-mode 1))
+;; (use-package simple-modeline
+;;   :straight t
+;;   :hook (after-init . simple-modeline-mode))
 
 ;; ibuffer
 (use-package ibuffer
@@ -615,6 +615,15 @@
 		 ("Org" (or (mode . org-mode)
 			    (filename . "OrgMode"))))))))
 
+;; This is to use pdf-tools instead of doc-viewer
+(use-package pdf-tools
+  :straight t
+  :config
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-width)
+  :custom
+  (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
+
 ;; helm-bibtex
 (use-package helm-bibtex
   :straight t
@@ -626,14 +635,17 @@
   (setq bibtex-completion-display-formats '((t . "${author:36} ${title:100} ${year:4} ${=has-pdf=:1}${=has-note=:1} ${=type=:7}")))
   :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
 
-;; This is to use pdf-tools instead of doc-viewer
-(use-package pdf-tools
+;; org-roam-bibtex stuff
+(use-package org-roam-bibtex
   :straight t
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
-  (pdf-tools-install)
-  (setq-default pdf-view-display-size 'fit-width)
-  :custom
-  (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
+  (setq orb-preformat-keywords
+	'("citekey" "title" "url" "author-or-editor" "keywords" "file")
+	orb-process-file-keyword t
+	orb-file-field-extensions '("pdf")))
+(org-roam-bibtex-mode) ;;Only gets loaded properly when I put it here.
 
 ;; Treemacs
 (use-package treemacs
@@ -685,7 +697,6 @@
   (setenv "WORKON_HOME" "~/.config/pyenv/versions")
   (pyvenv-workon "3.10.10") ;; Default venv
   (pyvenv-tracking-mode 1))
-
 
 ;;;;;;;;;;
 ;; Rust ;;
@@ -806,14 +817,10 @@
   :config
   (global-vi-tilde-fringe-mode))
 
-;; All the icons
-(use-package all-the-icons
-  :straight t
-  :if (display-graphic-p))
-
 ;; All the icons in dired
 (use-package all-the-icons-dired
   :straight t
+  :after (all-the-icons)
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
