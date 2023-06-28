@@ -618,6 +618,7 @@
 ;; This is to use pdf-tools instead of doc-viewer
 (use-package pdf-tools
   :straight t
+  :hook (pdf-view-mode . (lambda() (display-line-numbers-mode 0)))
   :config
   (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-width)
@@ -900,7 +901,7 @@
       (user-error "Buffer %S not alive" pdf-buf-name))))
 
 ;; Customize org-roam-minibuffer
-(setq org-roam-node-display-template (concat "${title:40} "
+(setq org-roam-node-display-template (concat "${title:100} "
 					     (propertize "${tags:20}" 'face 'org-tag)))
 
 ;; I shamelessly copy-pasted these from doom emacs, because they are super useful.
