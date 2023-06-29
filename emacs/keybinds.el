@@ -12,6 +12,16 @@
  "ff" '(find-file :wk "find file")
  "fd" '(delete-file :wk "delete file")
 
+ "a" '(:ignore t :wk "org-ai")
+ "ar" '(org-ai-on-region :wk "AI on region")
+ "as" '(org-ai-summarize :wk "AI summarize")
+ "af" '(org-ai-refactor-code :wk "AI refactor")
+ "am" '(org-ai-switch-chat-model :wk "AI switch model")
+ "aa" '(org-ai-open-account-usage-page :wk "AI usage")
+ "ad" '(org-ai-open-request-buffer :wk "AI debug")
+ "ap" '(org-ai-prompt :wk "AI prompt")
+ "ae" '(org-ai-complete-block :wk "AI evaluate block")
+
  "b" '(:ignore t :wk "buffers")
  "bb" '(switch-to-buffer :wk "switch buffer")
  "bk" '(kill-buffer :wk "kill buffer")
@@ -26,6 +36,7 @@
  "o" '(:ignore t :wk "open")
  "om" '(mu4e :wk "email")
  "ol" '(helm-bibtex :wk "literature")
+ "on" '(helm-bibtex-with-notes :wk "literature with notes")
  "oa" '(org-agenda :wk "agenda")
  "od" '(dired :wk "dired")
  "og" '(magit :wk "magit")
@@ -52,6 +63,11 @@
  "i" '(:ignore t :wk "insert")
  "ic" '(insert-char :wk "character")
 
+ "W" '(:ignore t :wk "Writing")
+ "Wf" '(:ignore t :wk "focus")
+ "Wff" '(focus-mode :wk "toggle focus-mode")
+ "Wfc" '(focus-change-thing :wk "change focus")
+
  "t" '(:ignore t :wk "treemacs")
  "to" '(treemacs :wk "open browser")
  "tw" '(:ignore t :wk "workspaces")
@@ -64,6 +80,11 @@
  "C-K" #'vertico-previous-group
  "C-j" #'vertico-next
  "C-k" #'vertico-previous)
+
+(general-define-key
+ :keymaps '(helm-map)
+ "C-j" #'helm-next-line
+ "C-k" #'helm-previous-line)
 
 (general-define-key
  :states '(normal visual insert motion emacs)
@@ -183,12 +204,6 @@
  "m" '(:ignore t :wk "localleader")
  "ms" '(ess-view-data-sort :wk "sort")
  "mq" '(ess-view-data-quit :wk "quit"))
-
-(eval-after-load "ivy"
-  (general-define-key
-   :keymaps 'ivy-minibuffer-map
-   "C-j" 'ivy-next-line
-   "C-k" 'ivy-previous-line))
 
 (general-define-key
  :states '(normal visual replace emacs)

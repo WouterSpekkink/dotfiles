@@ -28,6 +28,13 @@
 (use-package undo-fu
   :straight t)
 
+(use-package undo-fu-session
+  :straight t
+  :config
+  (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+  :init
+  (undo-fu-session-global-mode))
+
 ;; Which key
 (use-package which-key
   :straight t
@@ -45,15 +52,13 @@
   :straight t
   :demand t
   :bind (("<escape>" . keyboard-escape-quit))
-  :init
-  ;; allows for using cgn
-  ;; (setq evil-search-module 'evil-search_
-  (setq evil-want-keybinding nil
-  ;; no vim insert bindings
-	evil-undo-system 'undo-fu)
   :config
   (setq evil-want-C-u-scroll t)
-  (evil-mode 1))
+  (evil-mode 1)
+  :init
+  (setq evil-want-keybinding nil
+	evil-undo-system 'undo-fu))
+
 
 ;; Vim Bindings Everywhere else
 (use-package evil-collection
@@ -361,6 +366,14 @@
   :config
   (setq org-reveal-root "/home/wouter/Tools/reveal.js"))
 
+;; org-ai
+(use-package org-ai
+  :straight t
+  :hook (org-mode-hook . org-ai-mode)
+  :init
+  (org-ai-mode)
+  (org-ai-global-mode))
+
 ;;;;;;;;;;;
 ;; Email ;;
 ;;;;;;;;;;;
@@ -502,6 +515,15 @@
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
 
+;; Focus
+(use-package focus
+  :straight t)
+
+;; auth-source
+(use-package auth-source
+  :straight t
+  :config (setq auth-sources '("~/.authinfo.gpg")))
+
 ;; general (keybinds)
 (use-package general
   :straight t
@@ -628,6 +650,7 @@
 ;; helm-bibtex
 (use-package helm-bibtex
   :straight t
+  :hook (helm-major-mode . (lambda() (display-line-numbers-mode 0)))
   :custom
   (bibtex-completion-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
   (reftex-default-bibliography '("~/Tools/Zotero/bibtex/library.bib"))
