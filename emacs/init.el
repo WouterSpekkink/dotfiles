@@ -53,11 +53,11 @@
   :demand t
   :bind (("<escape>" . keyboard-escape-quit))
   :config
-  (setq evil-want-C-u-scroll t)
   (evil-mode 1)
   :init
   (setq evil-want-keybinding nil
-	evil-undo-system 'undo-fu))
+	evil-undo-system 'undo-fu
+	evil-want-C-u-scroll t))
 
 
 ;; Vim Bindings Everywhere else
@@ -515,6 +515,17 @@
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
 
+;; chat-gpt
+(use-package shell-maker
+  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("shell-maker.el")))
+
+(use-package chatgpt-shell
+  :requires shell-maker
+  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("chatgpt-shell.el")))
+
+(setq chatgpt-shell-openai-key
+      (auth-source-pick-first-password :host "api.openai.com"))
+
 ;; Focus
 (use-package focus
   :straight t)
@@ -537,7 +548,7 @@
 	 (emacs-lisp-mode . rainbow-mode)
 	 (sly-mrepl-mode . rainbow-mode)
 	 (ess-r-mode . rainbow-mode)
-	 (inferior-ess-r-mode . rainbow-mode)))
+ 	 (inferior-ess-r-mode . rainbow-mode)))
 
 (use-package rainbow-mode
   :straight t)
@@ -737,6 +748,14 @@
 
 (add-hook 'c++-mode-hook #'electric-pair-mode)
 (add-hook 'c-mode-hook #'electric-pair-mode)
+
+;;;;;;;;;;
+;; YAML ;;
+;;;;;;;;;;
+
+(use-package yaml-mode
+  :straight t)
+
 
 ;;;;;;;;;;;;;;;;;
 ;; Common Lisp ;;

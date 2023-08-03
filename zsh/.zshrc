@@ -85,6 +85,10 @@ alias la="ls -a"
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/yarnrc"
 alias N="sudo -E nnn -dH"
 alias svn="svn --config-dir \ "$XDG_CONFIG_HOME\ "/suversion"
+alias checkgpu="watch -n 2 nvidia-smi"
+alias petalsstop="sudo systemctl stop petals"
+alias petalsstart="sudo systemctl start petals"
+alias petalsinfo="sudo systemctl status petals"
 
 # NNN configuration
 export NNN_FCOLORS='27d0e62e006099f7c6e2abc4'

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+bookmark="$(xclip -o)"
+file="$XDG_DATA_HOME/bookmarks"
+
+if [ -z "$bookmark" ]
+then
+    bookmarkNew=$(:|dmenu -p "Create new bookmark:" & sleep 0.1)
+    if [ -z "$bookmarkNew" ]
+    then
+	notify-send -e "Bookmark creation cancelled."
+	return 1
+    else
+	notify-send -e "Bookmark successfully created as $bookmarkNew."
+	echo "$bookmarkNew" >> "$file"
+    fi
+else
+    if grep -q "^$bookmark" "$file"; then
+	notify-send -e "Already bookmarked."
+    else
+	bookmarkEdit=$(:|dmenu -p "Edit bookmark:" & sleep 0.1 && xdotool type $bookmark)
+	if [ -z "$bookmarkEdit" ]
+	then
+	    notify-send -e "Bookmark creation cancelled."
+	    return 1
+	else
+	    notify-send -e "Bookmark successfully added as $bookmarkEdit."
+	    echo "$bookmarkEdit" >> "$file"
+	fi
+    fi
+fi

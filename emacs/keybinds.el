@@ -12,9 +12,11 @@
  "ff" '(find-file :wk "find file")
  "fd" '(delete-file :wk "delete file")
 
- "a" '(:ignore t :wk "org-ai")
- "ar" '(org-ai-on-region :wk "AI on region")
- "as" '(org-ai-summarize :wk "AI summarize")
+ "a" '(:ignore t :wk "AI")
+ "ar" '(:ignore t :wk "AI on region")
+ "arq" '(org-ai-on-region :wk "ask question about region")
+ "ars" '(org-ai-summarize :wk "summarize region")
+ "arp" '(chatgpt-shell-proofread-region :wk "proofread region")
  "af" '(org-ai-refactor-code :wk "AI refactor")
  "am" '(org-ai-switch-chat-model :wk "AI switch model")
  "aa" '(org-ai-open-account-usage-page :wk "AI usage")
@@ -40,6 +42,7 @@
  "oa" '(org-agenda :wk "agenda")
  "od" '(dired :wk "dired")
  "og" '(magit :wk "magit")
+ "oc" '(chatgpt-shell :wk "chatGPT")
 
  "n" '(:ignore t :wk "notes")
  "np" '(org-noter :w "noter")
