@@ -13,9 +13,6 @@ DMEDITOR=$(echo "$eds" | grep "^$choice" | cut -f2-)
 cmds="\
 zshrc\t$DMEDITOR $HOME/dotfiles/zsh/.zshrc
 profile\t$DMEDITOR $HOME/dotfiles/profile/profile
-doom config\t$DMEDITOR $HOME/dotfiles/doom/config.el
-doom packages\t$DMEDITOR $HOME/dotfiles/doom/packages.el
-doom init\t$DMEDITOR $HOME/dotfiles/doom/init.el
 nvim\t$DMEDITOR $HOME/dotfiles/nvim/init.vim
 dwm\t$DMEDITOR $HOME/Git/suckless/dwm/config.h
 dwm autostart\t$DMEDITOR $HOME/.local/share/dwm/autostart.sh
