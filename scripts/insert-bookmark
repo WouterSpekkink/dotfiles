@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xdotool type $(grep -v '^#' ~/.local/share/bookmarks | dmenu -l 20 -F | cut -d' ' -f1)

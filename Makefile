@@ -46,6 +46,7 @@ execs:
 	$(LN) $(PWD)/scripts/org-capture $(HOME)/.local/bin/org-capture
 	$(LN) $(PWD)/scripts/screenshot $(HOME)/.local/bin/screenshot
 	$(LN) $(PWD)/scripts/bookmark-this $(HOME)/.local/bin/bookmark-this
+	$(LN) $(PWD)/scripts/insert-bookmark $(HOME)/.local/bin/insert-bookmark
 
 install: ## Install arch linux packages
 	$(PKGINSTALL) --needed - < $(PWD)/archlinux/pacmanlist
