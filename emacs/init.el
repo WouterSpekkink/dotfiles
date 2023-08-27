@@ -544,11 +544,11 @@
 ;; rainbow delimiters
 (use-package rainbow-delimiters
   :straight t
-  :hook ((lisp-mode . rainbow-mode)
-	 (emacs-lisp-mode . rainbow-mode)
-	 (sly-mrepl-mode . rainbow-mode)
-	 (ess-r-mode . rainbow-mode)
- 	 (inferior-ess-r-mode . rainbow-mode)))
+  :hook ((lisp-mode . rainbow-delimiters-mode)
+	 (emacs-lisp-mode . rainbow-delimiters-mode)
+	 (sly-mrepl-mode . rainbow-delimiters-mode)
+	 (ess-r-mode . rainbow-delimiters-mode)
+ 	 (inferior-ess-r-mode . rainbow-delimiters-mode)))
 
 (use-package rainbow-mode
   :straight t)
@@ -614,15 +614,6 @@
 ;; Line numbers
 (global-display-line-numbers-mode)
 (menu-bar--display-line-numbers-mode-relative)
-
-;; Mode-line
-(use-package doom-modeline
-  :straight t
-  :init
-  (doom-modeline-mode 1))
-;; (use-package simple-modeline
-;;   :straight t
-;;   :hook (after-init . simple-modeline-mode))
 
 ;; ibuffer
 (use-package ibuffer
@@ -692,6 +683,15 @@
 
 (use-package magit
   :straight t)
+
+;; Mode-line
+(use-package doom-modeline
+  :straight t
+  :init
+  (doom-modeline-mode 1))
+;; (use-package simple-modeline
+;;   :straight t
+;;   :hook (after-init . simple-modeline-mode))
 
 ;; Multiple cursors
 (use-package multiple-cursors
