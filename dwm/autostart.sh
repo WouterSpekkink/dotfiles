@@ -8,6 +8,8 @@ pgrep nitrogen || nitrogen --restore &
 pgrep wmname || wmname LG3D &
 pgrep emacs || emacs --daemon &
 pgrep davmail || davmail &
+xautolock -time 10 -locker slock -corners ---- &
+
 
 # Run startup scripts
 #~/.local/bin/checkaudio &

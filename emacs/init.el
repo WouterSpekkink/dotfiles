@@ -232,7 +232,8 @@
 	(lambda (key) (car (bibtex-completion-find-pdf key)))
 	org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point
 	;; For pdf export engines
-	org-latex-pdf-process (list "latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -bibtex -f -output-directory=%o %f")
+	;;org-latex-pdf-process (list "latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -bibtex -f -output-directory=%o %f")
+	org-latex-pdf-process (list "latexmk -pdf -f %f")
 	org-ref-notes-function 'orb-edit-notes))
 
 ;; org-noter stuff
@@ -514,6 +515,10 @@
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
+
+;; ledged-mode
+(use-package ledger-mode
+  :straight t)
 
 ;; chat-gpt
 (use-package shell-maker
