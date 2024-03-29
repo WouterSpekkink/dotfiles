@@ -11,22 +11,23 @@ DMEDITOR=$(echo "$eds" | grep "^$choice" | cut -f2-)
 
 # And let us then choose a config file to edit
 cmds="\
-zshrc\t$DMEDITOR $HOME/dotfiles/zsh/.zshrc
-profile\t$DMEDITOR $HOME/dotfiles/profile/profile
-nvim\t$DMEDITOR $HOME/dotfiles/nvim/init.vim
-dwm\t$DMEDITOR $HOME/Git/suckless/dwm/config.h
+bibliography\t$DMEDITOR $HOME/Tools/Zotero/bibtex/library.bib 
+bookmarks\t$DMEDITOR $HOME/.local/share/bookmarks
+dmenu config\t$DMEDITOR $HOME/dotfiles/scripts/dmenuconfig
+dmenu\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
 dwm autostart\t$DMEDITOR $HOME/.local/share/dwm/autostart.sh
 dwm blocks\t$DMEDITOR $HOME/Git/suckless/dwmblocks/blocks.h
-st\t$DMEDITOR $HOME/Git/suckless/st/config.h
-dmenu\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
-dmenu config\t$DMEDITOR $HOME/dotfiles/scripts/dmenuconfig
-slstatusbar\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
-pacman\tsudo $DMEDITOR /etc/pacman.conf
-picom\t$DMEDITOR $HOME/dotfiles/picom/picom.conf
+dwm\t$DMEDITOR $HOME/Git/suckless/dwm/config.h
+mbsync config\t$DMEDITOR $HOME/.config/isync/mbsyncrc
 newsboat config\t$DMEDITOR $HOME/dotfiles/newsboat/config
 newsboat urls\t$DMEDITOR $HOME/dotfiles/newsboat/urls
-mbsync config\t$DMEDITOR $HOME/.config/isync/mbsyncrc
-bookmarks\t$DMEDITOR $HOME/.local/share/bookmarks"
+nvim\t$DMEDITOR $HOME/dotfiles/nvim/init.vim
+pacman\tsudo $DMEDITOR /etc/pacman.conf
+picom\t$DMEDITOR $HOME/dotfiles/picom/picom.conf
+profile\t$DMEDITOR $HOME/dotfiles/profile/profile
+slstatusbar\t$DMEDITOR $HOME/Git/suckless/dmenu/config.h
+st\t$DMEDITOR $HOME/Git/suckless/st/config.h
+zshrc\t$DMEDITOR $HOME/dotfiles/zsh/.zshrc"
 
 choice="$(echo "$cmds" | cut -f 1 | dmenu -l 20 -p "Edit config of:")" || exit 1
 

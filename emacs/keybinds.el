@@ -183,6 +183,14 @@
    "C-M-q" 'org-noter-kill-session))
 
 (general-define-key
+ :keymaps '(org-noter-doc-mode-map org-noter-notes-mode-map)
+ :states '(normal visual insert replace emacs)
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "m" '(:ignore t :wk "localleader")
+ "md" '(pdf-view-themed-minor-mode :wk "dark mode"))
+
+(general-define-key
  :keymaps 'ess-r-mode-map
  :states '(normal visual insert replace emacs)
  :prefix "SPC"

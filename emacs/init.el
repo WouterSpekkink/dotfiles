@@ -57,7 +57,11 @@
   :init
   (setq evil-want-keybinding nil
 	evil-undo-system 'undo-fu
-	evil-want-C-u-scroll t))
+	evil-want-C-u-scroll t)
+  (add-hook 'pdf-view-mode-hook
+	    (lambda ()
+	      (set (make-local-variable 'evil-normal-state-cursor) (list nil)))))
+
 
 
 ;; Vim Bindings Everywhere else
@@ -687,7 +691,10 @@
   :after treemacs)
 
 (use-package magit
-  :straight t)
+  :straight t
+  :config
+  (add-hook 'magit-process-find-password-functions 'magit-process-password-auth-source))
+  
 
 ;; Mode-line
 (use-package doom-modeline
