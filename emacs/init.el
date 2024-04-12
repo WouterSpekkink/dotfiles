@@ -80,7 +80,8 @@
   :hook ((org-mode . flyspell-mode)
 	 (org-mode . +org-enable-auto-reformat-tables-h)
 	 (org-mode . writegood-mode )
-	 (org-mode . visual-line-mode))
+	 (org-mode . visual-line-mode)
+	 (org-mode . org-indent-mode))
   :config
   (setq org-directory "~/org/"
 	org-hide-emphasis-markers t
@@ -98,6 +99,7 @@
 	org-refile-use-outline-path 'file
 	org-outline-path-complete-in-steps nil
 	org-refile-allow-creating-parent-nodes (quote confirm)
+	org-indent-indentation-per-level 0
 
 	;; org keyword related stuff
 	org-todo-keywords
