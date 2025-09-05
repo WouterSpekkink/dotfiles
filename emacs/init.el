@@ -72,6 +72,7 @@
   (setq evil-want-integration t)
   (evil-collection-init))
 
+
 ;;;;;;;;;;;;;;
 ;; Org-mode ;;
 ;;;;;;;;;;;;;;
@@ -91,10 +92,7 @@
 	org-refile-targets (quote ((nil :maxlevel . 5)
 				   (org-agenda-files :maxlevel . 5)))
 	org-agenda-files (quote("~/org/"
-				"~/org/synced/"
-				"~/org/org-roam/"
 				"~/org/org-roam/daily/"
-				"~/org/org-roam/references/"
 				))
 	org-refile-use-outline-path 'file
 	org-outline-path-complete-in-steps nil
@@ -244,7 +242,7 @@
 
 ;; org-noter stuff
 (use-package org-noter
-  :straight t
+  :straight (org-noter :type git :host github :repo "org-noter/org-noter" :branch "master")t
   :after pdf-tools
   :config
   (setq org-noter-notes-search-path "~/org/org-roam/references/"
@@ -525,17 +523,6 @@
 ;; ledged-mode
 (use-package ledger-mode
   :straight t)
-
-;; chat-gpt
-(use-package shell-maker
-  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("shell-maker.el")))
-
-(use-package chatgpt-shell
-  :requires shell-maker
-  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("chatgpt-shell.el")))
-
-(setq chatgpt-shell-openai-key
-      (auth-source-pick-first-password :host "api.openai.com"))
 
 ;; Focus
 (use-package focus
@@ -865,8 +852,9 @@
    (load-theme 'monokai t))
 
 ;; Set font
-(add-to-list 'default-frame-alist '(font . "DejaVuSansMono NF Book 13"))
-(set-face-attribute 'default t :font "DejaVuSansMono NF Book 13") 
+(add-to-list 'default-frame-alist '(font . "DejaVuSansMono Nerd Font Book 13"))
+(set-face-attribute 'default t :font "DejaVuSansMono Nerd Font Book 13") 
+(set-face-attribute 'italic nil :font "DejaVuSansMono Nerd Font Oblique 13" :slant 'italic) 
 
 ;; Tilde fringe
 (use-package vi-tilde-fringe

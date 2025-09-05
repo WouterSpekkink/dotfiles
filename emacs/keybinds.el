@@ -183,12 +183,18 @@
    "C-M-q" 'org-noter-kill-session))
 
 (general-define-key
- :keymaps '(org-noter-doc-mode-map org-noter-notes-mode-map)
+ :keymaps '(org-noter-doc-mode-map org-noter-notes-mode-map pdf-view-mode-map)
  :states '(normal visual insert replace emacs)
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  "m" '(:ignore t :wk "localleader")
- "md" '(pdf-view-themed-minor-mode :wk "dark mode"))
+ "md" '(pdf-view-themed-minor-mode :wk "dark mode")
+ "ma" '(:ignore t :wk "annotate")
+ "maa" '(pdf-annot-add-annotation :wk "add annotation")
+ "mam" '(pdf-annot-add-markup-annotation :wk "add markup annotation")
+ "mat" '(pdf-annot-add-text-annotation :wk "add text annotation")
+ "mah" '(pdf-annot-add-highlight-markup-annotation :wk "add highlight annotation")
+ "mad" '(pdf-annot-delete :wk "delete annotation"))
 
 (general-define-key
  :keymaps 'ess-r-mode-map
