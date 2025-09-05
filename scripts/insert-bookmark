@@ -1,3 +1,12 @@
 #!/bin/sh
+file="${XDG_DATA_HOME:-$HOME/.local/share}/bookmarks"
 
-xdotool type $(grep -v '^#' ~/.local/share/bookmarks | dmenu -l 20 -F | cut -d' ' -f1)
+sel="$(grep -v '^#' "$file" | dmenu -l 20 -F)"
+[ -z "$sel" ] && exit 0
+
+# print the last tab-separated field (the URL)
+url="$(printf '%s' "$sel" | awk -F ' - ' '{print $NF}')"
+[ -z "$url" ] && exit 1
+
+
+xdotool type --clearmodifiers --delay 0 -- "$(printf '%s' "$url")"

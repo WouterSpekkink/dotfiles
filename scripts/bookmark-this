@@ -1,19 +1,20 @@
 #!/bin/sh
+file="${XDG_DATA_HOME:-$HOME/.local/share}/bookmarks"
+mkdir -p "$(dirname "$file")"; touch "$file"
 
-file="$XDG_DATA_HOME/bookmarks"
+line="$(printf '' | dmenu -p 'Name - keywords - URL:')"
+[ -z "$line" ] && { notify-send -e "bookmark creation cancelled."; exit 1; }
 
-bookmark=$(:|dmenu -p "edit bookmark:")
-if [ -z "$bookmark" ]
+# Extract URL (last field after " - ")
+url="$(printf '%s\n' "$line" | awk -F ' - ' '{print $NF}')"
+[ -z "$url" ] && { notify-send -e "invalid bookmark (missing URL)."; exit 1; }
+
+# Duplicate check: same URL already present as last field
+if awk -F ' - ' -v u="$url" '!/^[[:space:]]*#/ && NF>=2 && $NF==u { exit 0 } END { exit 1 }' "$file"
 then
-    notify-send -e "bookmark creation cancelled."
-    return 1
-else
-    bookmarkUrl="${bookmark%% *}"
-    if grep -q "^$bookmarkUrl" "$file"
-    then
-	notify-send -e "already bookmarked."
-    else
-	notify-send -e "bookmark successfully added as $bookmark."
-	echo "$bookmark" >> "$file"
-    fi
+  notify-send -e "already bookmarked."
+  exit 0
 fi
+
+printf '%s\n' "$line" >> "$file"
+notify-send -e "bookmark added."
